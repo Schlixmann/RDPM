@@ -1,23 +1,11 @@
-from fastapi import Depends, FastAPI, HTTPException
 import requests
 import xml.etree.ElementTree as ET
-
-
-# print all manipulate elements
-to_allocate = [n.tag for n in root.iter() if n.findall(".//cpee1:resources", ns)]
-#print(to_allocate)
-
 from lxml import etree
-
-# Try with lxml etree:
-
-# parse xml
-e_root = etree.fromstring(r.content)
 
 # Returns a list with all tasks that need allocation
 def get_tasks_to_allocate(root: etree) -> list:
     to_allocate = []
-    for elem in e_root.iter():
+    for elem in root.iter():
         if not elem.find(".//cpee1:resources", ns) == None:
             resource = elem.find(".//cpee1:resources", ns)
 
@@ -73,13 +61,14 @@ if __name__ == "__main__":
     r = requests.get(url = cpee_url)
 
     # parse xml:
-    root = ET.fromstring(r.content)
+    root = etree.fromstring(r.content)
 
     # create demo resources
     resource_1 = Resource()
-    resource_1.add_resource_profile("res1", f"<manipulate id=\"a9\"/>")
-    resource_1.add_resource_profile("res3", f"<manipulate id=\"a10\"/>")
-    resource_1.add_resource_profile("res5", f"<manipulate id=\"a11\"/>")
+    resource_1.add_resource_profile("res1", f"<manipulate id=\"a9\"/>", "xyz")
+    #resource_1.add_resource_profile("res3", f"<manipulate id=\"a10\"/>")
+    #resource_1.add_resource_profile("res5", f"<manipulate id=\"a11\"/>")
 
-    to_allocate = get_tasks_to_allocate()
+    to_allocate = get_tasks_to_allocate(root)
+    print(to_allocate)
     allocate_tasks(to_allocate, [resource_1], root)
