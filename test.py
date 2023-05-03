@@ -20,7 +20,7 @@ root = etree.fromstring(r.content)
 # create demo resources
 frag_1 = etree.fromstring(r1.content)
 
-children = 
+
 frag_1 = etree.ElementTree(frag_1.getchildren()[0])
 for n in frag_1.iter():
     print(n)
