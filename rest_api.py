@@ -18,6 +18,7 @@ def get_tasks_to_allocate(root: etree) -> list:
             
     return to_allocate
 
+
 # allocates all tasks in allocate list
 # input: 
 #   to_allocate: a lists with all open tasks to allocate
@@ -25,8 +26,6 @@ def get_tasks_to_allocate(root: etree) -> list:
 #   xml_string: full description from cpee
 def allocate_tasks(to_allocate:list, available_resources: list, xml_string):
     for task in to_allocate:
-        to_manipulate: str = None
-
         #TODO --> implement function that finds best resource based on rule
         for res_role in task["res_profile"]:
             available_res_roles = [item for item in [resource.get_profile_list() for resource in available_resources]]
