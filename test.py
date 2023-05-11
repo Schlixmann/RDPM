@@ -24,3 +24,12 @@ frag_1 = etree.fromstring(r1.content)
 frag_1 = etree.ElementTree(frag_1.getchildren()[0])
 for n in frag_1.iter():
     print(n)
+
+if __name__ == "__main__":
+    import time
+    try:
+        while True:
+                time.sleep(1)
+                print('processing...')
+    except KeyboardInterrupt:
+        print('!!FINISH!!')

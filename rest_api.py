@@ -65,8 +65,9 @@ class Resource():
             profile_list.append(profile['profile_name'])
         return profile_list
 
-    def add_resource_profile(self, profile_name:str, change_fragment:str, core_fragment:str):
+    def add_resource_profile(self, profile_name:str, change_fragment:str, core_fragment:str, constraints:str, Direction:int): #TODO change to resource Profile only
         self.resourceProfiles.append({"profile_name" : profile_name, "change_fragment" : change_fragment, "core_fragment" : core_fragment})
+
 
 
 if __name__ == "__main__":
