@@ -1,6 +1,7 @@
 # TODO
 # Add Resources in this File
 import random
+from .change_pattern import *
 
 class Resource():
     def __init__(self, name):
@@ -27,15 +28,19 @@ class Resource():
     
 
 class ResourceProfile():
-    def __init__(self, name,  role, resource, change_pattern=[], task=str()):
+    def __init__(self, name,  role, resource=None,  change_pattern=[], task=str()):
         self.name:str = name
         self.role:str = role
-        self.change_pattern:list() = change_pattern
+        self.change_patterns:list() = list(change_pattern)
         self.task:str() = task
         self.resource: Resource = resource
     
     def info(self):
         return self.__dict__
-    
+
+    def add_change_pattern(self, name):
+        cp = [cp.name for cp in ChangePattern.instances].index(name)
+        self.change_patterns.append(ChangePattern.instances[cp])
+
 if __name__ == "__main__":
     pass

@@ -1,5 +1,5 @@
 import unittest
-from proc_resource import *
+from proc_manipulation.proc_resource import *
 
 class TestEvent(unittest.TestCase):
     def test_build_resource(self):

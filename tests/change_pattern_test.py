@@ -1,5 +1,5 @@
 import unittest
-from change_pattern import * 
+from proc_manipulation.change_pattern import * 
 
 class TestEvent(unittest.TestCase):
     def test_changePattern(self):
@@ -14,3 +14,10 @@ class TestEvent(unittest.TestCase):
     
     def test_direction(self):
         print(Direction("after"))
+
+    def test_changePattern_url(self):
+        cp1 = ChangePattern("test", "after", fragment= 15344)
+        print(cp1.info())
+
+    
+        
