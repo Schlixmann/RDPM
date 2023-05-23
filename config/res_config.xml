@@ -6,12 +6,12 @@
         <resprofile id="12" name="rp12" role ="Nurse" task="Initial Examination">
             <changepattern>
                 <description>
-                    <manipulate id="a1" label="">
+                    <manipulate id="a1" label="Examination">
                         <resources>
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <manipulate id="a2" label="">
+                    <manipulate id="a2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
                         </resources>
@@ -30,12 +30,12 @@
         <resprofile id="31" name="rp31" role="Nurse" task= "Initial Examination">
             <changepattern>
                 <description>
-                    <manipulate id="a1" label="">
+                    <manipulate id="a1" label="Examination">
                         <resources>
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <manipulate id="a2" label="">
+                    <manipulate id="a2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
                         </resources>
