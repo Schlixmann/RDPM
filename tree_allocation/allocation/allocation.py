@@ -10,8 +10,6 @@ ns = {"cpee2": "http://cpee.org/ns/properties/2.0",
 def parse_tasks(xml_string:str):
     #parsed = etree.fromstring(xml_string)
     parsed = xml_string
-    for i in parsed.xpath(".//call | .//manipulate"):
-        print(i)
     tasklist = []
     for task in parsed.xpath(".//call | .//manipulate"):
         # TODO: add for call type: Label is stored as parameter
@@ -19,16 +17,17 @@ def parse_tasks(xml_string:str):
 
     return tasklist
 
-def get_allocation(task, av_resources:Resource=[], excluded=[]):
-    root = tn.TaskNode(task)
-    #excluded = excluded.append(root)
-
+def get_allocation(root, av_resources:Resource=[], excluded=[], task_parent=None, res_parent=None):
+    # TODO: Multiple RP's for one resource where one RP is not possible must be created still.
     for resource in av_resources:
         for profile in resource.resourceProfiles:
-            if task.lower() == profile.task.lower():
+            if root.label.lower() == profile.task.lower():
                 root.add_child(rn.ResourceNode(resource.name, profile, profile.task))
     if len(root.children) == 0:
+        root.label = "to_delete"
+        task_parent.children.remove(res_parent)
         return root
+        
     
     for resource in root.children:
         #TODO: change_pattern is list of lists but should be list
@@ -38,7 +37,9 @@ def get_allocation(task, av_resources:Resource=[], excluded=[]):
                 #TODO check for excluded
                 tasks = parse_tasks(change_pattern)
                 for task in tasks:
-                    resource.add_child(get_allocation(task, av_resources, excluded=excluded))
-        else:
-            return root
+                    task = tn.TaskNode(task)
+                    resource.add_child(get_allocation(task, av_resources, excluded=excluded, task_parent=root, res_parent=resource))
+    return root
+
+
 

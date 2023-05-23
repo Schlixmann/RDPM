@@ -35,13 +35,17 @@ def get_all_tasks(cpee_url):
         
         return tasks
 
-def print_allo_tree(node):
-    if len(node.children) == 0:
-          print(node)
-    else:
-        print(node)
-        for child in node.children:
-            print_allo_tree(child)
+def print_allo_tree(node, indent=""):
+   # Print the tree
+   try:
+    if type(node) == tn.TaskNode:
+        print(indent , node.label)
+    else: 
+         print(indent, node.name)
+    for child in node.children:
+        print_allo_tree(child, indent + "  ")
+   except Exception as e:
+       print(e)
 
 if __name__ == "__main__":
     reslist = []
@@ -54,7 +58,7 @@ if __name__ == "__main__":
     ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
             "cpee1":"http://cpee.org/ns/description/1.0"}
     
-    resources = get_all_resources("./config/res_config.xml")
+    resources = get_all_resources("./config/res_config_3.xml")
     tasklabels = []
     for task in get_all_tasks(cpee_url):
         try:
@@ -73,8 +77,10 @@ if __name__ == "__main__":
     print(tasklabels)
     print(resources)
     from tree_allocation.allocation.allocation import *
-    allocation_tree = get_allocation(tasklabels[0], resources)
-    print_allo_tree(allocation_tree)
+    root = tn.TaskNode(tasklabels[0])
+    allocation_tree = get_allocation(root, resources)
+
+    print_allo_tree(root)
 
 ## TODO: allocation algorithm (tree)
 

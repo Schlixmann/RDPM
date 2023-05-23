@@ -1,4 +1,3 @@
-
 <resources>
     <resource id="1" name="nurse1" activeRole="">
         <resprofile id="11" name="rp11" role ="Nurse" task="Examination">
@@ -20,7 +19,7 @@
             </changepattern>
         </resprofile>
     </resource>
-    <resource id="2"  name="doc1" activeRole="">
+    <resource id="2" name="doc1" activeRole="">
         <resprofile id="21" name="rp21" role ="Doc" task="Examination">
         </resprofile>
         <resprofile id="22" name="rp22" role ="Doc" task="Decision">
@@ -37,6 +36,11 @@
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
+                    <manipulate id="a3" label="Not Allocateable">
+                        <resources>
+                            <resource>Doc</resource>
+                        </resources>
+                    </manipulate>
                     <manipulate id="a2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
@@ -45,6 +49,22 @@
                 </description>
             </changepattern>
         </resprofile>
-        <resprofile id="32" name="rp12" role ="Nurse" task="Examination"></resprofile>
+        <resprofile id="32" name="rp32" role ="Nurse" task="Examination"></resprofile>
+        <resprofile id="33" name="rp33" role="Nurse" task= "Initial Examination">
+            <changepattern>
+                <description>
+                    <manipulate id="a1" label="Examination">
+                        <resources>
+                            <resource>Nurse</resource>
+                        </resources>
+                    </manipulate>
+                    <manipulate id="a2" label="Decision">
+                        <resources>
+                            <resource>Doc</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>
     </resource>
 </resources>
