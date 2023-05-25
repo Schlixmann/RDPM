@@ -1,16 +1,16 @@
-
 import uuid
+from .node import Node
 
-class TaskNode:
-    def __init__(self, label):
-        self.__id = str(uuid.uuid1())
+class TaskNode(Node):
+    def __init__(self, label, allowed_roles=[]):
+        super().__init__()
         self.label = label
-        self.children = []
-
-    def add_child(self, obj):
-        self.children.append(obj)
+        self.allowed_roles = allowed_roles  
 
     @property
     def id(self):
         return self.__id
     
+    @property
+    def get_name(self):
+        return self.label

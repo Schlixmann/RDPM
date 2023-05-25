@@ -36,11 +36,53 @@
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <manipulate id="a3" label="Not Allocateable">
+                    <call id="a2" endpoint="">
+                        <parameters>
+                            <label>second examination</label>
+                            <method>:post</method>
+                            <arguments/>
+                        </parameters>
+                        <code>
+                            <prepare/>
+                            <finalize output="result"/>
+                            <update output="result"/>
+                            <rescue output="result"/>
+                        </code>
+                        <annotations>
+                            <_timing>
+                                <_timing_weight/>
+                                <_timing_avg/>
+                                <explanations/>
+                            </_timing>
+                            <_shifting>
+                                <_shifting_type>Duration</_shifting_type>
+                            </_shifting>
+                            <_context_data_analysis>
+                                <probes/>
+                                <ips/>
+                            </_context_data_analysis>
+                            <report>
+                                <url/>
+                            </report>
+                            <_notes>
+                                <_notes_general/>
+                            </_notes>
+                        </annotations>
+                        <documentation>
+                            <input/>
+                            <output/>
+                            <implementation>
+                                <description/>
+                            </implementation>
+                            <code>
+                                <description/>
+                            </code>
+                        </documentation>
                         <resources>
                             <resource>Doc</resource>
+                            <resource>Nurse</resource>
                         </resources>
-                    </manipulate>
+                    </call>
                     <manipulate id="a2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
@@ -53,11 +95,53 @@
         <resprofile id="33" name="rp33" role="Nurse" task= "Initial Examination">
             <changepattern>
                 <description>
-                    <manipulate id="a1" label="Examination">
+                    <call id="a1" endpoint="">
+                        <parameters>
+                            <label>Examination</label>
+                            <method>:post</method>
+                            <arguments/>
+                        </parameters>
+                        <code>
+                            <prepare/>
+                            <finalize output="result"/>
+                            <update output="result"/>
+                            <rescue output="result"/>
+                        </code>
+                        <annotations>
+                            <_timing>
+                                <_timing_weight/>
+                                <_timing_avg/>
+                                <explanations/>
+                            </_timing>
+                            <_shifting>
+                                <_shifting_type>Duration</_shifting_type>
+                            </_shifting>
+                            <_context_data_analysis>
+                                <probes/>
+                                <ips/>
+                            </_context_data_analysis>
+                            <report>
+                                <url/>
+                            </report>
+                            <_notes>
+                                <_notes_general/>
+                            </_notes>
+                        </annotations>
+                        <documentation>
+                            <input/>
+                            <output/>
+                            <implementation>
+                                <description/>
+                            </implementation>
+                            <code>
+                                <description/>
+                            </code>
+                        </documentation>
                         <resources>
+                            <resource>Doc</resource>
                             <resource>Nurse</resource>
                         </resources>
-                    </manipulate>
+                    </call>
                     <manipulate id="a2" label="Decision">
                         <resources>
                             <resource>Doc</resource>

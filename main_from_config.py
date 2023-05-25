@@ -58,7 +58,7 @@ if __name__ == "__main__":
     ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
             "cpee1":"http://cpee.org/ns/description/1.0"}
     
-    resources = get_all_resources("./config/res_config_3.xml")
+    resources = get_all_resources("./config/res_config_4.xml")
     tasklabels = []
     for task in get_all_tasks(cpee_url):
         try:
@@ -77,10 +77,23 @@ if __name__ == "__main__":
     print(tasklabels)
     print(resources)
     from tree_allocation.allocation.allocation import *
-    root = tn.TaskNode(tasklabels[0])
-    allocation_tree = get_allocation(root, resources)
+    from PrettyPrint import PrettyPrintTree
 
-    print_allo_tree(root)
+    for task in tasklabels:
+        print(f"Start Allocation of {task}")
+        root = tn.TaskNode(task)
+        build_allo_tree(root, resources)
+        #print_allo_tree(root)
+
+        pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
+        pt(root)
+        root.get_branch_depth()
+        print(root.min_depth())
+        root.get_shortest_leaf()
+        root.get_min_branch()
+
+
+        # TODO: create change operation
 
 ## TODO: allocation algorithm (tree)
 
