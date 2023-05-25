@@ -56,7 +56,7 @@ if __name__ == "__main__":
     frag_url = f"https://cpee.org/flow/engine/15344/properties/description/"
 
     ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
-            "cpee1":"http://cpee.org/ns/description/1.0"}
+            "cpee1":"http://cpee.org/ns/description/1.0"}       
     
     resources = get_all_resources("./config/res_config_4.xml")
     tasklabels = []
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         print(root.min_depth())
         root.get_shortest_leaf()
         print(root.get_min_branch())
-        print(root.get_best_branch())
+        print(root.get_best_branch(measure="expected_time", operator=min))
 
 
         # TODO: create change operation
