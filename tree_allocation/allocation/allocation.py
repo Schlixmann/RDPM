@@ -51,5 +51,9 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
                     resource.add_child(build_allo_tree(task, av_resources, excluded=excluded, task_parent=root, res_parent=resource))
     return root
 
-
+# TODO 
+# 1. get allocation for each task. 
+# 2. build change operations for this task
+# 3. Integrate change operations in original RPST
+# 4. Make accessible and return to CPEE
 

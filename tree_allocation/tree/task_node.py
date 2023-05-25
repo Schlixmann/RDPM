@@ -6,6 +6,7 @@ class TaskNode(Node):
         super().__init__()
         self.label = label
         self.allowed_roles = allowed_roles  
+        self.node_type = "task"
 
     @property
     def id(self):

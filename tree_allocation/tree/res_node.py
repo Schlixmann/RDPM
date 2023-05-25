@@ -8,6 +8,7 @@ class ResourceNode(Node):
         self.name = name
         self.resource_profile = resource_profile
         self.task = task
+        self.node_type = "resource"
     
     @property
     def get_name(self):

@@ -90,11 +90,12 @@ if __name__ == "__main__":
         root.get_branch_depth()
         print(root.min_depth())
         root.get_shortest_leaf()
-        root.get_min_branch()
+        print(root.get_min_branch())
+        print(root.get_best_branch())
 
 
         # TODO: create change operation
 
-## TODO: allocation algorithm (tree)
+## TODO: access via Rest Service
 
     
