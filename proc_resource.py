@@ -14,7 +14,7 @@ class Resource():
     def get_profile_list(self):
         return self.resourceProfiles
 
-    #def add_resource_profile(self, profile_name:str, change_fragment:str, core_fragment:str, constraints:str, Direction:int): #TODO change to resource Profile only
+    def add_resource_profile(self, profile_name:str, change_fragment:str, core_fragment:str, constraints:str, Direction:int): #TODO change to resource Profile only
         self.resourceProfiles.append({"profile_name" : profile_name, "change_fragment" : change_fragment, "core_fragment" : core_fragment})
     
     def create_resource_profile(self, name:str, role:str, **kwargs): #TODO change to resource Profile only

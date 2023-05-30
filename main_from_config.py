@@ -79,6 +79,8 @@ if __name__ == "__main__":
     from tree_allocation.allocation.allocation import *
     from PrettyPrint import PrettyPrintTree
 
+    
+
     for task in tasklabels:
         print(f"Start Allocation of {task}")
         root = tn.TaskNode(task)
@@ -87,15 +89,15 @@ if __name__ == "__main__":
 
         pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
         pt(root)
-        root.get_branch_depth()
-        print(root.min_depth())
-        root.get_shortest_leaf()
-        print(root.get_min_branch())
-        print(root.get_best_branch(measure="expected_time", operator=min))
 
-
+        print(root.get_best_branch(measure="expected_time", operator=max))
+        best_branch, options, value, best_node = root.get_best_branch(measure="expected_time", operator=max)
+    
+        pt(best_node)
         # TODO: create change operation
 
+        all_resources = best_node.get_all_nodes()
+        print([resource.get_name for resource in all_resources])
 ## TODO: access via Rest Service
 
     
