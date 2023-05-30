@@ -65,12 +65,14 @@ class Node:
             value = operator(branch_measure)
         index = branch_measure.index(value)
 
-        best_branch = all_branches[index]       
+        best_branch =  all_branches[index]       
         
         # clean node:
-        best_node = best_branch[0]
-        best_node.clean_best_branch_node(measure, operator)
-        
+        best_res_node = best_branch[0]
+        best_res_node.clean_best_branch_node(measure, operator)
+        best_node = self
+        best_node.children = [best_res_node]
+        best_branch = [self] + best_branch
         
         return best_branch, branch_measure, value, best_node
 

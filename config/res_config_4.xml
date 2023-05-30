@@ -3,14 +3,14 @@
         <resprofile id="11" name="rp11" role ="Nurse" task="Examination">
         </resprofile>
         <resprofile id="12" name="rp12" role ="Nurse" task="Initial Examination">
-            <changepattern>
+            <changepattern type="replace">
                 <description>
-                    <manipulate id="a1" label="Examination">
+                    <manipulate id="r1" label="Examination">
                         <resources>
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <manipulate id="a2" label="Decision">
+                    <manipulate id="r2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
                         </resources>
@@ -33,14 +33,14 @@
     </resource>
     <resource id="3" name="nurse2" activeRole="">
         <resprofile id="31" name="rp31" role="Nurse" task= "Initial Examination">
-            <changepattern>
+            <changepattern type="replace">
                 <description>
                     <manipulate id="a1" label="Examination">
                         <resources>
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <call id="a2" endpoint="">
+                    <call id="r2" endpoint="">
                         <parameters>
                             <label>second examination</label>
                             <method>:post</method>
@@ -87,7 +87,7 @@
                             <resource>Nurse</resource>
                         </resources>
                     </call>
-                    <manipulate id="a2" label="Decision">
+                    <manipulate id="r2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
                         </resources>
@@ -97,9 +97,9 @@
         </resprofile>
         <resprofile id="32" name="rp32" role ="Nurse" task="Examination"></resprofile>
         <resprofile id="33" name="rp33" role="Nurse" task= "Initial Examination">
-            <changepattern>
+            <changepattern type="replace">
                 <description>
-                    <call id="a1" endpoint="">
+                    <call id="r1" endpoint="">
                         <parameters>
                             <label>Examination</label>
                             <method>:post</method>
@@ -146,7 +146,7 @@
                             <resource>Nurse</resource>
                         </resources>
                     </call>
-                    <manipulate id="a2" label="Decision">
+                    <manipulate id="r2" label="Decision">
                         <resources>
                             <resource>Doc</resource>
                         </resources>
