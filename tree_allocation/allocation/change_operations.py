@@ -34,7 +34,11 @@ def create_change_operation(allocated_branch: Node, process_model: str):
     
     return process_model
         
-    
+#TODO show that task is allocated and which resource
+# test with insert and conditions
+# realize rest api 
+# test with different settings! 
+
 if __name__ == "__main__":
     pass
 
