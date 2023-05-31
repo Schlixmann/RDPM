@@ -93,8 +93,21 @@ class Node:
         #     else:
         #         return child.get_all_resource_nodes()
         nodes = self.tree_paths()
-        nodes = self.filter_nested_list(nodes, node_type="resource")
+        nodes = self.filter_nested_list(nodes, node_type=key)
         return nodes
+    
+    def get_change_operations(self):
+        operations = [node.resource_profile.change_patterns for node in self.filter_nested_list(self.tree_paths(), node_type="resource")]
+        change_operations = []
+        for operation in operations:
+            if len(operation) > 0:
+                for pattern in operation:
+                    change_operations.append({"resource": pattern, "type": pattern.attrib["type"]})
+            else:
+                change_operations.append({"resource": pattern, "type": "allocation"})
+        return change_operations
+    
+
     # TODO 
     # create method "get_best_branch" based on different optimization types (e.g. min/max/avg)
     #  -> different values from Resource Profile (sum of rp expected values)

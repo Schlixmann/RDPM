@@ -10,8 +10,8 @@ class ResourceNode(Node):
         self.resource_profile = resource_profile
         self.task = task
         self.node_type = "resource"
-        if self.name == "nurse2":
-            self.expected_time = 1
+        if self.name == "doc1":
+            self.expected_time = 3
         else:
             self.expected_time = 2
     @property

@@ -11,7 +11,7 @@ class TaskNode(Node):
 
     @property
     def id(self):
-        return self.__id
+        return self.task_id
     
     @property
     def get_name(self):

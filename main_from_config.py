@@ -26,7 +26,7 @@ if __name__ == "__main__":
     ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
             "cpee1":"http://cpee.org/ns/description/1.0"}       
     
-    resources = get_all_resources("./config/res_config_4.xml")
+    resources = get_all_resources("./config/res_config_5.xml")
     tasklabels = []
     for task in get_all_tasks(cpee_url):
         try:
@@ -38,7 +38,7 @@ if __name__ == "__main__":
                 if not attrib.find(".//cpee1:label", ns).text:
                      raise Exception("Task {} has no label.".format(task.attrib["id"]))
                 else:
-                     tasklabels.append({"task_id": attrib["id"], "label": attrib.find(".//cpee1:label", ns).text })
+                     tasklabels.append({"task_id": task.attrib["id"], "label": attrib.find(".//cpee1:label", ns).text })
             except Exception as e:
                 print(e)
                 continue
@@ -48,14 +48,14 @@ if __name__ == "__main__":
     from PrettyPrint import PrettyPrintTree
     from tree_allocation.allocation.change_operations import *
     
-
+    changed_model = None
     for task in tasklabels:
         print(f"Start Allocation of {task}")
         root = tn.TaskNode(task["task_id"], task["label"])
         build_allo_tree(root, resources)
         #print_allo_tree(root)
 
-        pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
+        pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
         pt(root)
 
         print(root.get_best_branch(measure="expected_time", operator=max))
@@ -68,9 +68,17 @@ if __name__ == "__main__":
         print([resource.get_name for resource in all_resources])
 
         process_model_xml, process_model_etree = get_process_model(cpee_url)
+        with open("process3.xml", "wb") as f:
+            f.write(process_model_xml)
         changed_model = create_change_operation(best_node, process_model_xml)
-        with open("./output/test.xml", "wb") as f:
-            f.write(etree.tostring(changed_model))
+        
+
+        
+        
+    with open("./output/test.xml", "wb") as f:
+        f.write(etree.tostring(changed_model))
+
+
 ## TODO: access via Rest Service
 
     

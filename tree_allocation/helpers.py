@@ -3,16 +3,19 @@ from lxml import etree
 import requests
 
 def get_all_resources(path_to_xml):
+        ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
+        "cpee1":"http://cpee.org/ns/description/1.0"}
+
         reslist = []
         with open(str(path_to_xml)) as f:
             root = etree.fromstring(f.read())
         
-        for element in root.findall("resource"):
+        for element in root.findall("resource", ns):
             print(f"Create resource with id {element.attrib['id']}")
             res = Resource(element.attrib["name"])
-            for profile in element.findall("resprofile"):
+            for profile in element.findall("resprofile", ns):
                 change_patterns=[]
-                for cp in profile.findall("changepattern"):
+                for cp in profile.findall("changepattern", ns):
                     change_patterns.append(cp)
                 res.create_resource_profile(profile.attrib["name"], profile.attrib["role"], task=profile.attrib["task"], change_patterns=change_patterns)
 

@@ -9,21 +9,24 @@ ns = {"cpee2": "http://cpee.org/ns/properties/2.0",
 
 
 def parse_tasks(xml_string:str):
+    ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
+        "cpee1":"http://cpee.org/ns/description/1.0"}
     #parsed = etree.fromstring(xml_string)
     parsed = xml_string
     tasks = []
     roles = []
-    for task in parsed.xpath(".//call | .//manipulate"):
-        if task.tag == "manipulate":
+
+    for task in parsed.xpath(".//cpee1:call | .//cpee1:manipulate", namespaces=ns):
+        if task.tag == etree.QName(ns["cpee1"], "manipulate"):
             # TODO: add for call type: Label is stored as parameter
             task_id = task.attrib["id"]
-            roles = [role.text for role in task.findall(".//resource", ns)]
+            roles = [role.text for role in task.findall(".//cpee1:resource", ns)]
             label = task.attrib["label"]
 
         else: 
             task_id = task.attrib["id"]
-            roles = [role.text for role in task.findall(".//resource", ns)]
-            label = task.find(".//parameters/label").text
+            roles = [role.text for role in task.findall(".//cpee1:resource", ns)]
+            label = task.find(".//cpee1:parameters/cpee1:label", ns).text
         tasks.append({"task_id": task_id, "label": label, "roles": roles})
     return tasks
 
@@ -37,9 +40,13 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
                 root.add_child(rn.ResourceNode(resource, resource.name, profile, profile.task))
     if len(root.children) == 0:
         try:
+            # TODO Attribute error does not happen, situation is not cancelled
             task_parent.children = [task for task in task_parent.children if task.resource_profile != res_parent.resource_profile]
+            if len(task_parent.children) == 0:
+                raise(AttributeError)
         except AttributeError:
-            print("No fitting resource for core task available")
+            print(f"No fitting resource for core task: \"{task_parent.get_name}\"  available")
+        
         return root
         
     
