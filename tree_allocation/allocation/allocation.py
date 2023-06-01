@@ -3,6 +3,7 @@ from tree_allocation.tree import res_node as rn
 
 from proc_resource import *
 from lxml import etree
+import warnings
 
 ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
         "cpee1":"http://cpee.org/ns/description/1.0"}
@@ -39,13 +40,14 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
             if root.label.lower() == profile.task.lower() and (profile.role in root.allowed_roles if len(root.allowed_roles) > 0 else True): 
                 root.add_child(rn.ResourceNode(resource, resource.name, profile, profile.task))
     if len(root.children) == 0:
-        try:
-            # TODO Attribute error does not happen, situation is not cancelled
-            task_parent.children = [task for task in task_parent.children if task.resource_profile != res_parent.resource_profile]
-            if len(task_parent.children) == 0:
-                raise(AttributeError)
-        except AttributeError:
-            print(f"No fitting resource for core task: \"{task_parent.get_name}\"  available")
+        if not task_parent:
+            warnings.warn("No resource for a core task")
+            raise(ResourceError(root))
+        # TODO Attribute error does not happen, situation is not cancelled
+        task_parent.children = [task for task in task_parent.children if task.resource_profile != res_parent.resource_profile]
+        if len(task_parent.children) == 0:
+            warnings.warn("The task can not be allocated due to missing resource availability", ResourceWarning)
+            raise(ResourceError(task_parent))
         
         return root
         
@@ -60,6 +62,16 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
                     resource.add_child(build_allo_tree(task, av_resources, excluded=excluded, task_parent=root, res_parent=resource))
     return root
 
+class ResourceError(Exception):
+    # Exception is raised if no sufficiant allocation for a task can be found for available resources
+    
+    def __init__(self, task, message=f"No valid resource allocation can be found for the given set of available resources"):
+        self.task = task
+        self.message = message
+        super().__init__(self.message)
+
+class ResourceWarning(UserWarning):
+    pass
 # TODO 
 # 1. get allocation for each task. 
 # 2. build change operations for this task

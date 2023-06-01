@@ -59,7 +59,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
 
 
                 
-    return process_model
+    return etree.tostring(process_model), process_model
     
 
 
