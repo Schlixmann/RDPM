@@ -20,7 +20,7 @@
         </resprofile>
                 <resprofile id="13" name="rp13" role ="Nurse" task="Final Examination">
         </resprofile>
-        <resprofile id="14" name="rp14" role ="Nurse" task="Hospital" stay">
+        <resprofile id="14" name="rp14" role ="Nurse" task="Hospital stay">
         </resprofile>
     </resource>
     <resource id="2" name="doc1" activeRole="">

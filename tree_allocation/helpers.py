@@ -2,8 +2,11 @@ from proc_resource import *
 from tree_allocation.allocation.allocation import *
 from tree_allocation.allocation.change_operations import * 
 from PrettyPrint import PrettyPrintTree
+from pptree import *
 from lxml import etree
 import requests
+import logging
+logger = logging.getLogger(__name__)
 
 def get_all_resources(resource_url):
         ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
@@ -58,6 +61,7 @@ def get_process_model(cpee_url):
 def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources"):
     #resources = get_all_resources("./config/res_config_5.xml")
     resources = get_all_resources(resource_url)
+    logger.info(f"Test logging from module {[r.name for r in resources]}")
     process_model_xml, process_model_etree = get_process_model(cpee_url)
     tasklabels = []
     for task in get_all_tasks(cpee_url):
@@ -99,20 +103,22 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources"):
             all_resources = best_node.get_all_nodes()
             print([resource.get_name for resource in all_resources])
 
-            changed_model_xml, changed_model_etree = create_change_operation(best_node, process_model_xml)
+            process_model_xml, changed_model_etree = create_change_operation(best_node, process_model_xml)
             
             with open(f"./output/out_{str(i)}.xml", "wb") as f:
-                f.write((changed_model_xml))
+                f.write((process_model_xml))
+
+            logger.info(f"Task successfully allocate: {root.get_name}")
         except ResourceError as e:
             e.add_note(f"No allocation possible, the task: {task} is skipped")
             print("Task not allocatable:", e.task.get_name, ", Message:", e.message)
-            changed_model_xml = process_model_xml
+            
         except:
             print("Allocation Failed")
-            changed_model_xml = process_model_xml
+            
         i += 1
         
         
     with open("./output/test.xml", "wb") as f:
-        f.write((changed_model_xml))
-    return changed_model_xml
+        f.write((process_model_xml))
+    return process_model_xml
