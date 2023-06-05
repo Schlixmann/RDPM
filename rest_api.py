@@ -26,7 +26,7 @@ def get_info():
 @get("/resources")
 def get_resources():
     '''Return the resource xml'''
-    resource_xml = open("./config/res_config_4.xml").read()
+    resource_xml = open("./config/res_config_cost.xml").read()
     response.headers['Content-Type'] = 'text/xml'
     return resource_xml
 
@@ -39,17 +39,30 @@ def get_resources():
 
 @post("/allocation/")
 def update_process():
-    measure = request.forms.get("measure")
-    operator = request.forms.get(operator)
+    try:
+        measure = request.forms.get("measure")
+    except:
+        measure = None
 
-    print(request.headers.raw("Cpee-Instance-Url"))
+     
+    try: 
+        operator = request.forms.get("operator")
+        match operator:
+            case "min":
+                operator = min
+            case "max":
+                operator = max
+    except:
+        operator = None
+
+    print("CPEE-Instance URL: ", request.headers.raw("Cpee-Instance-Url"))
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
 
     
     if request.forms.get("resource_url"):
         resource_url = request.forms.get("resource_url")
-        print(resource_url)
+        print("Resource config File URL", resource_url)
         manipulated_process_model = allocate_process(description_url, resource_url=resource_url, measure=measure, operator=operator)
     else: 
         manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator)
@@ -74,7 +87,6 @@ def my_request(instance_url, xml_str):
 
     process_model = etree.fromstring(xml_str)
     position = process_model.xpath(".//cpee1:*[@id]", namespaces=ns)[1].attrib["id"]
-    print(position)
     description_url = instance_url + "properties/description/"
     payload = xml_str
     headers = {

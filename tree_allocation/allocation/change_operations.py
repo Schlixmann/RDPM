@@ -16,7 +16,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
  
     rp = (next(rp for rp in resources[0].resource_obj.resource_profiles if rp == resources[0].resource_profile))
     #TODO maybe for multiple change patterns
-    #print([x for x in rp.change_patterns[0].iter()])
+
     
     for x in allocated_branch.get_all_nodes(key="task"):
         # find element to manipulate:

@@ -26,16 +26,16 @@ class Node:
 
     def count_branch_steps(self, branch, measure=None):
         # TODO Change so different measures work
+        # TODO does not consider measure to filter cheapest resource
+
         if measure == None:
             finished_step = len([step for step in branch if type(step) != list])
-        else:
-            if self.node_type == "task":
-                finished_step = 0
-            else:    
-                step_list = [getattr(step, measure) for step in branch if type(step) != list]
-                finished_step = sum(step_list)
+        else: 
+            step_list = [step.measure[measure] for step in branch if ((type(step) != list) and (step.node_type != "task"))]
+            finished_step = sum(step_list)
         open_step = [step for step in branch if type(step) == list]
         open_step = [step for sublist in open_step for step in sublist]
+  
         if len(open_step) == 0: return finished_step
         return finished_step + self.count_branch_steps(open_step, measure=measure)
 
@@ -49,7 +49,7 @@ class Node:
             if not measure:
                 self.children = [self.children[0]]
             else: 
-                child_compare = [getattr(child, measure) for child in self.children]
+                child_compare = [child.measure[measure] for child in self.children]
                 best_child_index = child_compare.index(operator(child_compare))
                 self.children = [self.children[best_child_index]]
 
@@ -60,8 +60,14 @@ class Node:
         # TODO should return all indices not just first. 
         #       
         all_branches = [child.tree_paths() for child in self.children]
-        #print(all_branches)
+        #from PrettyPrint import PrettyPrintTree
+        #pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if x.node_type == "task" else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
+        #for branch in self.children:
+        #    pt(branch)
+        #    print(branch.tree_paths())
+
         branch_measure = [self.count_branch_steps(branch, measure=measure) for branch in all_branches]#[len(branch) for branch in all_branches]
+        print(f"Branch measure, measure = {measure}: {branch_measure}")
         if not operator:
             value = min(branch_measure)
         else:
@@ -76,7 +82,6 @@ class Node:
         best_node = self
         best_node.children = [best_res_node]
         best_branch = [self] + best_branch
-        
         return best_branch, branch_measure, value, best_node
 
     def filter_nested_list(self, nested_list, node_type="resource"):

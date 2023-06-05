@@ -38,7 +38,8 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
     for resource in av_resources:
         for profile in resource.resource_profiles:
             if root.label.lower() == profile.task.lower() and (profile.role in root.allowed_roles if len(root.allowed_roles) > 0 else True): 
-                root.add_child(rn.ResourceNode(resource, resource.name, profile, profile.task))
+                root.add_child(rn.ResourceNode(resource, resource.name, profile, profile.task, profile.measure))
+
     if len(root.children) == 0:
         if not task_parent:
             warnings.warn("No resource for a core task")

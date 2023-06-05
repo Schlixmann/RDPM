@@ -3,11 +3,11 @@
         <resprofile id="11" name="rp11" role ="Nurse" task="Examination">
         </resprofile>
             <measures>
-                <cost>10</cost>
+                <cost>20</cost>
             </measures>
         <resprofile id="12" name="rp12" role ="Nurse" task="Initial Examination">
             <measures>
-                <cost>10</cost>
+                <cost>20</cost>
             </measures>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
@@ -32,7 +32,7 @@
     <resource id="2" name="doc1" activeRole="">
         <resprofile id="22" name="rp22" role ="Doc" task="Decision">
         </resprofile>
-        <resprofile id="23" name="rp23" role ="Doc" task="Initial Examination">
+        <resprofile id="23" name="rp23" role ="Doc" task="Initial  das">
             <measures>
                 <cost>25</cost>
             </measures>
@@ -125,9 +125,6 @@
                 <cost>10</cost>
             </measures>
         <resprofile id="33" name="rp33" role="Nurse" task= "Initial Examination">
-            <measures>
-                <cost>10</cost>
-            </measures>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
                     <call id="r1" endpoint="">

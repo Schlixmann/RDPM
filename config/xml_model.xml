@@ -1,13 +1,47 @@
 <description xmlns="http://cpee.org/ns/description/1.0">
-  <call id="a4" endpoint="allocation"><parameters><label>Allocation</label><method>:post</method><arguments><resource_url>http://localhost:8000/resources</resource_url><measure>cost</measure><operator>min</operator></arguments></parameters><annotations><_timing><_timing_weight/><_timing_avg/><explanations/></_timing><_shifting><_shifting_type>Duration</_shifting_type></_shifting><_context_data_analysis><probes/><ips/></_context_data_analysis><report><url/></report><_notes><_notes_general/></_notes></annotations><documentation><input/><output/><implementation><description/></implementation></documentation><resources allocated_to="not_allocated"/></call>
-  <manipulate id="r1" label="Examination">
-    <resources allocated_to="nurse1 rp:rp11">
-      <resource>Nurse</resource>
-    </resources>
-  </manipulate>
-  <manipulate id="r2" label="Decision">
-    <resources allocated_to="doc1 rp:rp22">
+  <call id="a4" endpoint="allocation">
+    <parameters>
+      <label>Allocation</label>
+      <method>:post</method>
+      <arguments>
+        <resource_url>http://localhost:8000/resources</resource_url>
+        <operator>min</operator>
+        <measure>cost</measure>
+      </arguments>
+    </parameters>
+    <annotations>
+      <_timing>
+        <_timing_weight/>
+        <_timing_avg/>
+        <explanations/>
+      </_timing>
+      <_shifting>
+        <_shifting_type>Duration</_shifting_type>
+      </_shifting>
+      <_context_data_analysis>
+        <probes/>
+        <ips/>
+      </_context_data_analysis>
+      <report>
+        <url/>
+      </report>
+      <_notes>
+        <_notes_general/>
+      </_notes>
+    </annotations>
+    <documentation>
+      <input/>
+      <output/>
+      <implementation>
+        <description/>
+      </implementation>
+    </documentation>
+    <resources allocated_to="not_allocated"/>
+  </call>
+  <manipulate id="a1" label="Initial Examination">
+    <resources allocated_to="not_allocated">
       <resource>Doc</resource>
+      <resource>Nurse</resource>
     </resources>
   </manipulate>
   <call id="a2" endpoint="">
@@ -52,7 +86,7 @@
         <description/>
       </code>
     </documentation>
-    <resources allocated_to="doc1 rp:rp24 &amp; doc1 rp:rp24 &amp; doc1 rp:rp24">
+    <resources allocated_to="not_allocated">
       <resource>Doc</resource>
       <resource>Nurse</resource>
     </resources>
@@ -90,7 +124,7 @@
         <description/>
       </implementation>
     </documentation>
-    <resources allocated_to="nurse1 rp:rp13 &amp; nurse1 rp:rp13 &amp; nurse1 rp:rp13">
+    <resources allocated_to="not_allocated">
       <resource>Doc</resource>
       <resource>Nurse</resource>
     </resources>

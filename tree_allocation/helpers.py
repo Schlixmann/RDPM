@@ -15,6 +15,12 @@ def get_all_resources(resource_url):
         r = requests.get(url = resource_url)
         root = etree.fromstring(r.content)
         reslist = []
+        measure_dict = {}
+
+        for measure in root.xpath("//measures/*"):
+            for item in measure.iter():
+                measure_dict.update({str(item.tag): 0})
+        print(f"Dict of Measures: ", measure_dict)
         
         for element in root.findall("resource", ns):
             print(f"Create resource with id {element.attrib['id']}")
@@ -23,7 +29,13 @@ def get_all_resources(resource_url):
                 change_patterns=[]
                 for cp in profile.findall("changepattern", ns):
                     change_patterns.append(cp)
-                res.create_resource_profile(profile.attrib["name"], profile.attrib["role"], task=profile.attrib["task"], change_patterns=change_patterns)
+                
+                
+                for measure in profile.xpath("//measures/*"):
+                    measure_dict.update({str(measure.tag): float(measure.text)})
+                #except Exception as e:
+                #    print("No measures in resource profile")
+                res.create_resource_profile(profile.attrib["name"], profile.attrib["role"], task=profile.attrib["task"], change_patterns=change_patterns, measure=measure_dict)
 
             reslist.append(res)
         return reslist
@@ -78,8 +90,8 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", m
             except Exception as e:
                 print(e)
                 continue
-    print(tasklabels)
-    print(resources)
+    print("Tasklabels: ", tasklabels)
+    print("Resource: ", resources)
 
     
     
@@ -94,9 +106,9 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", m
             pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
             pt(root)
 
-            print(root.get_best_branch(measure=measure, operator=operator))
-            best_branch, options, value, best_node = root.get_best_branch(measure=measure, operator=operator)
-        
+            
+            best_branch, branch_measure, value, best_node = root.get_best_branch(measure=measure, operator=operator)
+            print("Best_branch", f"All branch measures: {branch_measure}, best measure: {value}")
             pt(best_node)
             # TODO: create change operation
 

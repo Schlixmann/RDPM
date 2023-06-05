@@ -3,7 +3,7 @@ import uuid
 from .node import Node
 
 class ResourceNode(Node):
-    def __init__(self, resource_obj, name, resource_profile, task):
+    def __init__(self, resource_obj, name, resource_profile, task, measure={}):
         super().__init__()
         self.resource_obj = resource_obj
         self.name = name
@@ -14,6 +14,9 @@ class ResourceNode(Node):
             self.cost = 10
         else:
             self.cost = 1
+        
+        self.measure = measure
+        
     @property
     def get_name(self):
         return self.name
