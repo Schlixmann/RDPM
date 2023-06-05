@@ -24,8 +24,6 @@
         </resprofile>
     </resource>
     <resource id="2" name="doc1" activeRole="">
-        <resprofile id="21" name="rp21" role ="Doc" task="Examination">
-        </resprofile>
         <resprofile id="22" name="rp22" role ="Doc" task="Decision">
         </resprofile>
         <resprofile id="23" name="rp23" role ="Doc" task="Initial Examination">

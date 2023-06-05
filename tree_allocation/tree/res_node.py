@@ -11,9 +11,9 @@ class ResourceNode(Node):
         self.task = task
         self.node_type = "resource"
         if self.name == "doc1":
-            self.expected_time = 3
+            self.cost = 10
         else:
-            self.expected_time = 2
+            self.cost = 1
     @property
     def get_name(self):
         return self.name

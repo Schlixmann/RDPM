@@ -39,16 +39,20 @@ def get_resources():
 
 @post("/allocation/")
 def update_process():
+    measure = request.forms.get("measure")
+    operator = request.forms.get(operator)
+
     print(request.headers.raw("Cpee-Instance-Url"))
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
+
     
     if request.forms.get("resource_url"):
         resource_url = request.forms.get("resource_url")
         print(resource_url)
-        manipulated_process_model = allocate_process(description_url, resource_url=resource_url)
+        manipulated_process_model = allocate_process(description_url, resource_url=resource_url, measure=measure, operator=operator)
     else: 
-        manipulated_process_model = allocate_process(description_url)
+        manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator)
 
     
     event = threading.Event()
@@ -56,13 +60,21 @@ def update_process():
     t1.daemon = True
     t1.start()
     print("returning")
-    return manipulated_process_model
+    response.status = 400
+    print(response.status_line)
+    return response
     
 def my_request(instance_url, xml_str):
+    ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
+        "cpee1":"http://cpee.org/ns/description/1.0"}
     time.sleep(2)
 
     print("Back from wait")
     open("output/final_xml.xml", "wb").write(xml_str)
+
+    process_model = etree.fromstring(xml_str)
+    position = process_model.xpath(".//cpee1:*[@id]", namespaces=ns)[1].attrib["id"]
+    print(position)
     description_url = instance_url + "properties/description/"
     payload = xml_str
     headers = {
@@ -75,10 +87,18 @@ def my_request(instance_url, xml_str):
     logging.info(f"PUT new process model with status code: {response.status_code}")
 
     headers = {
+        'content-id': "positions",
+        'content-type': "text/xml; charset=UTF-8"
+        }
+    
+    status_url = instance_url + "properties/positions/"
+    payload = f"<?xml version=\"1.0\"?><positions xmlns=\"http://cpee.org/ns/properties/2.0\"><{position}>at</{position}></positions>"
+    response = requests.request("PUT", status_url, data=payload, headers=headers)
+    print(response.status_code)
+    headers = {
         'content-id': "description",
         'content-type': "application/x-www-form-urlencoded; charset=UTF-8"
         }
-    
     status_url = instance_url + "properties/state/"
     payload = "value=running"
     response = requests.request("PUT", status_url, data=payload, headers=headers)

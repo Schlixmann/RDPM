@@ -29,8 +29,11 @@ class Node:
         if measure == None:
             finished_step = len([step for step in branch if type(step) != list])
         else:
-            step_list = [getattr(step, measure) for step in branch if type(step) != list]
-            finished_step = sum(step_list)
+            if self.node_type == "task":
+                finished_step = 0
+            else:    
+                step_list = [getattr(step, measure) for step in branch if type(step) != list]
+                finished_step = sum(step_list)
         open_step = [step for step in branch if type(step) == list]
         open_step = [step for sublist in open_step for step in sublist]
         if len(open_step) == 0: return finished_step

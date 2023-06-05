@@ -45,6 +45,14 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                             with open("process1.xml", "wb") as f:
                                 f.write(etree.tostring(process_model))
 
+                        case "insert":
+                            pattern.findall(f".//cpee1:description/", ns)
+                            
+                            for change in to_insert[::-1]:
+                                
+                                process_model.find(f".//cpee1:*[@id='{task_id}']", ns).addnext(change)
+                            pass
+
             else:
                     
                 # BaseCase to allocate an element

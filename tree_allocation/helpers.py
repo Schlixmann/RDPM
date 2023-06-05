@@ -58,7 +58,7 @@ def get_process_model(cpee_url):
             f.write(xml_string)
         return xml_string, root
 
-def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources"):
+def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", measure=None, operator=min):
     #resources = get_all_resources("./config/res_config_5.xml")
     resources = get_all_resources(resource_url)
     logger.info(f"Test logging from module {[r.name for r in resources]}")
@@ -94,8 +94,8 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources"):
             pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
             pt(root)
 
-            print(root.get_best_branch(measure="expected_time", operator=max))
-            best_branch, options, value, best_node = root.get_best_branch(measure="expected_time", operator=max)
+            print(root.get_best_branch(measure=measure, operator=operator))
+            best_branch, options, value, best_node = root.get_best_branch(measure=measure, operator=operator)
         
             pt(best_node)
             # TODO: create change operation
@@ -113,8 +113,9 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources"):
             e.add_note(f"No allocation possible, the task: {task} is skipped")
             print("Task not allocatable:", e.task.get_name, ", Message:", e.message)
             
-        except:
+        except Exception as e:
             print("Allocation Failed")
+            print(e)
             
         i += 1
         
