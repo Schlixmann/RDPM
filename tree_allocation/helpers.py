@@ -13,26 +13,31 @@ def get_all_resources(resource_url):
         "cpee1":"http://cpee.org/ns/description/1.0"}
 
         r = requests.get(url = resource_url)
+        print("Resource status_code: ", r.status_code)
         root = etree.fromstring(r.content)
         reslist = []
-        measure_dict = {}
+        init_measure_dict = {}
 
         for measure in root.xpath("//measures/*"):
             for item in measure.iter():
-                measure_dict.update({str(item.tag): 0})
-        print(f"Dict of Measures: ", measure_dict)
+                init_measure_dict.update({str(item.tag): 0})
+        print(f"Dict of Measures: ", init_measure_dict)
         
-        for element in root.findall("resource", ns):
+        for element in root.xpath("//resource"):
             print(f"Create resource with id {element.attrib['id']}")
             res = Resource(element.attrib["name"])
-            for profile in element.findall("resprofile", ns):
+            for profile in element.xpath("resprofile"):
                 change_patterns=[]
-                for cp in profile.findall("changepattern", ns):
+                for cp in profile.xpath("changepattern"):
                     change_patterns.append(cp)
                 
+                measure_dict = dict(init_measure_dict)
+                for measure in profile.xpath("measures/*"):
+                    logger.debug(f"Tag: {measure.tag}, Value: {float(measure.text)}")
+                    measure_dict[str(measure.tag)] = float(measure.text)
                 
-                for measure in profile.xpath("//measures/*"):
-                    measure_dict.update({str(measure.tag): float(measure.text)})
+                logger.debug(f"init_measure_dict of {element} : {profile}: {measure_dict}")
+                logger.debug(f"check_init_measure: {init_measure_dict}")
                 #except Exception as e:
                 #    print("No measures in resource profile")
                 res.create_resource_profile(profile.attrib["name"], profile.attrib["role"], task=profile.attrib["task"], change_patterns=change_patterns, measure=measure_dict)
@@ -103,7 +108,7 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", m
             build_allo_tree(root, resources)
             #print_allo_tree(root)
 
-            pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
+            pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name) + " meas: " + str(x.measure))
             pt(root)
 
             

@@ -1,4 +1,7 @@
 import uuid
+import warnings
+import logging
+logger = logging.getLogger(__name__)
 
 class Node:
     def __init__(self):
@@ -24,20 +27,23 @@ class Node:
             return [self] + [child.tree_paths() for child in self.children]
         
 
-    def count_branch_steps(self, branch, measure=None):
+    def count_branch_steps(self, branch, measure=None, operator=min):
         # TODO Change so different measures work
         # TODO does not consider measure to filter cheapest resource
-
+        warnings.warn("The standard operator < min > is used.")
         if measure == None:
             finished_step = len([step for step in branch if type(step) != list])
         else: 
             step_list = [step.measure[measure] for step in branch if ((type(step) != list) and (step.node_type != "task"))]
-            finished_step = sum(step_list)
+            finished_step = operator(step_list)
         open_step = [step for step in branch if type(step) == list]
-        open_step = [step for sublist in open_step for step in sublist]
-  
+        #open_step = [step for sublist in open_step for step in sublist]
+        logger.debug(branch)
+        print(step_list)
         if len(open_step) == 0: return finished_step
-        return finished_step + self.count_branch_steps(open_step, measure=measure)
+        logger.debug(f"open step: {open_step}")
+        for i in open_step:
+            return finished_step + self.count_branch_steps(i, measure=measure, operator=operator)
 
     def clean_best_branch_node(self, measure, operator):
         if len(self.children) == 0:
@@ -60,13 +66,7 @@ class Node:
         # TODO should return all indices not just first. 
         #       
         all_branches = [child.tree_paths() for child in self.children]
-        #from PrettyPrint import PrettyPrintTree
-        #pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if x.node_type == "task" else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name))
-        #for branch in self.children:
-        #    pt(branch)
-        #    print(branch.tree_paths())
-
-        branch_measure = [self.count_branch_steps(branch, measure=measure) for branch in all_branches]#[len(branch) for branch in all_branches]
+        branch_measure = [self.count_branch_steps(branch, measure=measure, operator=operator) for branch in all_branches]#[len(branch) for branch in all_branches]
         print(f"Branch measure, measure = {measure}: {branch_measure}")
         if not operator:
             value = min(branch_measure)

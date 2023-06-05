@@ -1,5 +1,5 @@
 import logging
-logging.basicConfig(filename='log/myapp.log', level=logging.INFO)
+logging.basicConfig(filename='log/myapp.log', level=logging.DEBUG)
 logging.info('Started')
 
 from gevent import monkey; monkey.patch_all()
@@ -29,13 +29,6 @@ def get_resources():
     resource_xml = open("./config/res_config_cost.xml").read()
     response.headers['Content-Type'] = 'text/xml'
     return resource_xml
-
-@get("/resources2")
-def get_resources():
-    '''Return the resource xml'''
-    resource_xml = open("./config/res_config_5.xml").read()
-    response.headers['Content-Type'] = 'application/json'
-    return json.dumps({"resources" :resource_xml})
 
 @post("/allocation/")
 def update_process():
