@@ -39,7 +39,6 @@ class Node:
         open_step = [step for step in branch if type(step) == list]
         #open_step = [step for sublist in open_step for step in sublist]
         logger.debug(branch)
-        print(step_list)
         if len(open_step) == 0: return finished_step
         logger.debug(f"open step: {open_step}")
         for i in open_step:
