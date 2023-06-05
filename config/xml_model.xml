@@ -43,13 +43,13 @@
                                 <description/>
                             </code>
                         </documentation>
-                        <resources allocated_to="doc1 rp:rp21">
+                        <resources allocated_to="doc1 rp:rp21 &amp; doc1 rp:rp21">
                             <resource>Doc</resource>
                             <resource>Nurse</resource>
                         </resources>
                     </call>
                     <manipulate id="r2" label="Decision">
-                        <resources allocated_to="doc1 rp:rp22">
+                        <resources allocated_to="doc1 rp:rp22 &amp; doc1 rp:rp22">
                             <resource>Doc</resource>
                         </resources>
                     </manipulate>
@@ -96,7 +96,7 @@
         <description/>
       </code>
     </documentation>
-    <resources allocated_to="doc1 rp:rp24">
+    <resources allocated_to="doc1 rp:rp24 &amp; doc1 rp:rp24">
       <resource>Doc</resource>
       <resource>Nurse</resource>
     </resources>
@@ -134,7 +134,7 @@
         <description/>
       </implementation>
     </documentation>
-    <resources allocated_to="nurse1 rp:rp13">
+    <resources allocated_to="nurse1 rp:rp13 &amp; nurse1 rp:rp13">
       <resource>Doc</resource>
       <resource>Nurse</resource>
     </resources>

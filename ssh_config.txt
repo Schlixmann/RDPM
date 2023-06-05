@@ -1,1 +1,1 @@
-ssh -R 8080:localhost:62000 demo
+ssh -R 62000:localhost:8000 demo
