@@ -18,6 +18,7 @@ class Resource():
         self.resource_profiles.append({"profile_name" : profile_name, "change_fragment" : change_fragment, "core_fragment" : core_fragment})
     
     def create_resource_profile(self, name:str, role:str, **kwargs): #TODO change to resource Profile only
+        
         res_profile = ResourceProfile(name=name, role=role, resource=self, **kwargs)
         self.resource_profiles.append(res_profile)
         if len(self.resource_profiles) == 1:
