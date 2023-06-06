@@ -33,7 +33,7 @@ def get_resources():
 @post("/allocation/")
 def update_process():
     try:
-        measure = request.forms.get("measure")
+        measure = request.forms.get("measure").lower().strip()
     except:
         measure = None
 

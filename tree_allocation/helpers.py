@@ -63,7 +63,7 @@ def get_all_tasks(cpee_url):
 
 def get_process_model(cpee_url):
         # define namespaces
-        ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
+        ns = {"cpee2": "http://cpee./ns/properties/2.0", 
             "cpee1":"http://cpee.org/ns/description/1.0"}
         # send get request and save response
         r = requests.get(url = cpee_url)
@@ -108,7 +108,7 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", m
             build_allo_tree(root, resources)
             #print_allo_tree(root)
 
-            pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name) + " meas: " + str(x.measure))
+            pt = PrettyPrintTree(lambda x: x.children, lambda x: "task:" + str(x.label) + " " + str(x.id) if type(x) == tn.TaskNode else "res:" + str(x.name) + " rp:" + str(x.resource_profile.name) + f"\n {str(measure)}: "  + str(x.measure[measure]))
             pt(root)
 
             

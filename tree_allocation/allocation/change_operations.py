@@ -1,7 +1,8 @@
 from ..tree.node import *
 from lxml import etree
 from ..helpers import *
-
+import logging
+logger = logging.getLogger(__name__)
 
     
     
@@ -17,16 +18,19 @@ def create_change_operation(allocated_branch: Node, process_model: str):
     rp = (next(rp for rp in resources[0].resource_obj.resource_profiles if rp == resources[0].resource_profile))
     #TODO maybe for multiple change patterns
 
-    
+    print(f"All nodes: {[task.get_name for task in allocated_branch.get_all_nodes(key='task')]}")
     for x in allocated_branch.get_all_nodes(key="task"):
         # find element to manipulate:
+    
         task_id = x.id
 
 
         with open("process2.xml", "wb") as f:
             f.write(etree.tostring(process_model))
         #try:
+        print(task_id)
         elem_to_manipulate = process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0]
+        print(elem_to_manipulate)
         #except:
         #    elem_to_manipulate = process_model.xpath(f".//*[@id='{task_id}']", namespaces=ns)[0]    
 
@@ -42,16 +46,34 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                                 
                                 process_model.find(f".//cpee1:*[@id='{task_id}']", ns).addnext(change)
                             process_model.remove(elem_to_manipulate)
-                            with open("process1.xml", "wb") as f:
-                                f.write(etree.tostring(process_model))
+
 
                         case "insert":
-                            pattern.findall(f".//cpee1:description/", ns)
-                            
+                            print("create insertion:")
+                            to_insert = pattern.xpath(f"cpee1:description/*", namespaces=ns)
+                            logger.debug(f"to_insert: {to_insert}")
                             for change in to_insert[::-1]:
+                                logger.debug(f"{task_id}")
+                                logger.debug([elem.attrib["id"] for elem in process_model.xpath("/cpee1:description/*", namespaces=ns)])
+                                logger.debug(process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns))
+                                insert_index = process_model.xpath("/cpee1:description/*", namespaces=ns).index(process_model.xpath(f"//cpee1:*[@id='{task_id}']", namespaces=ns)[0])
+                                logger.debug(f"inser_index: {insert_index}")
+                                logger.debug(f"Match pattern: {[elem for elem in pattern.xpath('//changepattern/parameters/direction' , namespaces=ns)]}")
+                                match pattern.xpath("//changepattern/parameters/direction", namespaces=ns)[0].text:
+                                    case "before":
+                                        process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index - 1].addnext(change)
+                                        logger.debug("Added to process model!")
+                                    case "after":
+                                        process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index].addnext(change)
+                                    case "parallel":
+                                        to_remove = process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index]
+                                        process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index].addnext(etree.fromstring("<parallel></parallel>"))
+                                        process_model.remove(to_remove)
+                                        process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index].addnext(change)
                                 
-                                process_model.find(f".//cpee1:*[@id='{task_id}']", ns).addnext(change)
-                            pass
+                            
+                    with open("process1.xml", "wb") as f:
+                        f.write(etree.tostring(process_model))
 
             else:
                     

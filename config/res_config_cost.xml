@@ -1,13 +1,16 @@
-<resources>
+<?xml version="1.0"?>
+<resources >
     <resource id="1" name="nurse1" activeRole="">
-        <resprofile id="11" name="rp11" role ="Nurse" task="Examination">
+        <resprofile id="11" name="rp11" role ="Nurse" task="Examination"> <!--{{{-->
              <measures>
                 <cost>20</cost>
+                <time>15</time>
             </measures>
         </resprofile>
         <resprofile id="12" name="rp12" role ="Nurse" task="Initial Examination">
             <measures>
                 <cost>20</cost>
+                <time>25</time>
             </measures>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
@@ -25,19 +28,45 @@
             </changepattern>
         </resprofile>
         <resprofile id="13" name="rp13" role ="Nurse" task="Final Examination">
+            <measures>
+                <cost>5</cost>
+                <time>5</time>
+            </measures>
         </resprofile>
         <resprofile id="14" name="rp14" role ="Nurse" task="Hospital stay">
-        </resprofile>
+            <measures>
+                <cost>10</cost>
+                <time>5</time>
+            </measures>
+        </resprofile> <!--}}}--> <!--}}}-->
     </resource>
     <resource id="2" name="doc1" activeRole="">
-        <resprofile id="22" name="rp22" role ="Doc" task="Decision">
+        <resprofile id="22" name="rp22" role ="Doc" task="Decision"> <!--{{{-->
         </resprofile>
         <resprofile id="23" name="rp23" role ="Doc" task="Initial Examination">
             <measures>
                 <cost>55</cost>
+                <time>45</time>
             </measures>
         </resprofile>
         <resprofile id="25" name="rp25" role ="Doc" task="surgical operation">
+            <measures>
+                <cost>100</cost>
+                <time>55</time>
+            </measures>
+            <changepattern type="insert">
+                <parameters>
+                    <direction>parallel</direction>
+                </parameters>
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r6" label="prepare room">
+                        <resources allocated_to="not_allocated">
+                            <resource>Helper</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+
         </resprofile>
         <resprofile id="24" name="rp24" role ="Doc" task="Operation">
             <changepattern type="replace">
@@ -54,10 +83,10 @@
                     </manipulate>
                 </description>
             </changepattern>
-        </resprofile>
+        </resprofile>   <!--}}}-->
     </resource>
     <resource id="3" name="nurse2" activeRole="">
-        <resprofile id="31" name="rp31" role="Nurse" task= "Initial Examination">
+        <resprofile id="31" name="rp31" role="Nurse" task= "Initial Examination"> <!--{{{-->
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
                     <manipulate id="a1" label="Examination">
@@ -123,18 +152,19 @@
         <resprofile id="32" name="rp32" role ="Nurse" task="Examination">
             <measures>
                 <cost>10</cost>
+                <time>30</time>
             </measures>
         </resprofile>
         <resprofile id="33" name="rp33" role="Nurse" task= "Initial Examination">
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
-                    <call id="r1" endpoint="">
-                        <parameters>
+                    <call id="r1" endpoint=""> <!--{{{-->
+                        <parameters><!--{{{-->
                             <label>Examination</label>
                             <method>:post</method>
                             <arguments/>
                         </parameters>
-                        <code>
+                        <code> <!--{{{-->
                             <prepare/>
                             <finalize output="result"/>
                             <update output="result"/>
@@ -169,11 +199,11 @@
                             <code>
                                 <description/>
                             </code>
-                        </documentation>
+                        </documentation> <!--}}}-->
                         <resources allocated_to="not_allocated">
                             <resource>Doc</resource>
                             <resource>Nurse</resource>
-                        </resources>
+                        </resources> <!--}}}-->
                     </call>
                     <manipulate id="r2" label="Decision">
                         <resources allocated_to="not_allocated">
@@ -182,6 +212,15 @@
                     </manipulate>
                 </description>
             </changepattern>
+        </resprofile> <!--}}}-->
+    </resource>
+
+    <resource id="4" name="helper1" activeRole="">
+        <resprofile id="42" name="rp41" role ="Helper" task="prepare room">
+            <measures>
+                <cost>10</cost>
+                <time>30</time>
+            </measures>
         </resprofile>
     </resource>
 </resources>

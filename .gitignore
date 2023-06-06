@@ -1,4 +1,7 @@
-*.xml
+# Untracked Folders
+resmanipulation/
 
-!config/*
+# Untracked File Types
+*.xml
 *.log
+!config/*
