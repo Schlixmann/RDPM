@@ -130,9 +130,9 @@ def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", m
             e.add_note(f"No allocation possible, the task: {task} is skipped")
             print("Task not allocatable:", e.task.get_name, ", Message:", e.message)
             
-        except Exception as e:
-            print("Allocation Failed")
-            print(e)
+        #except Exception as e:
+        #    print("Allocation Failed")
+        #    print(e)
             
         i += 1
         
