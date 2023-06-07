@@ -9,8 +9,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 def get_all_resources(resource_url):
-        ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
-        "cpee1":"http://cpee.org/ns/description/1.0"}
 
         r = requests.get(url = resource_url)
         print("Resource status_code: ", r.status_code)
@@ -24,23 +22,16 @@ def get_all_resources(resource_url):
             res = Resource(element.attrib["name"])
             
             for profile in element.xpath("resprofile"):
-                change_patterns = [] + element.xpath("changepattern")
-                print(f"change_patterns: {change_patterns}")
-                measure_dict = init_measure_dict | dict(map(lambda e: (e.tag, e.text), element.xpath("measures/*")))
-                print(f"used_measure_dict for {profile.attrib['name']}: {measure_dict}")
-                
-            #    measure_dict = dict(init_measure_dict)
-            #    for measure in profile.xpath("measures/*"):
-            #        logger.debug(f"Tag: {measure.tag}, Value: {float(measure.text)}")
-            #        measure_dict[str(measure.tag)] = float(measure.text)
+                change_patterns = [] + profile.xpath("changepattern")
+                measure_dict = init_measure_dict | dict(map(lambda e: (e.tag, float(e.text)), profile.xpath("measures/*")))
                 
                 logger.debug(f"init_measure_dict of {element} : {profile}: {measure_dict}")
                 logger.debug(f"check_init_measure: {init_measure_dict}")
-                #except Exception as e:
-                #    print("No measures in resource profile")
+                
                 res.create_resource_profile(profile.attrib["name"], profile.attrib["role"], task=profile.attrib["task"], change_patterns=change_patterns, measure=measure_dict)
 
             reslist.append(res)
+            
         return reslist
 
 
@@ -48,21 +39,17 @@ def get_all_tasks(cpee_url):
         # define namespaces
         ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
             "cpee1":"http://cpee.org/ns/description/1.0"}
+        
         # send get request and save response
         r = requests.get(url = cpee_url)
 
         # parse xml:
         root = etree.fromstring(r.content)
-        tasks = []
-        for task in root.xpath(".//cpee1:call | .//cpee1:manipulate", namespaces=ns):
-            tasks.append(task)
+        tasks = root.xpath(".//cpee1:call | .//cpee1:manipulate", namespaces=ns)
         
         return tasks
 
 def get_process_model(cpee_url):
-        # define namespaces
-        ns = {"cpee2": "http://cpee./ns/properties/2.0", 
-            "cpee1":"http://cpee.org/ns/description/1.0"}
         # send get request and save response
         r = requests.get(url = cpee_url)
 
