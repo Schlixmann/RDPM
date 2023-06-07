@@ -54,11 +54,15 @@
     </resource>
     <resource id="2" name="doc1" activeRole="">
         <resprofile id="22" name="rp22" role ="Doc" task="Decision"> <!--{{{-->
+            <measures>
+                <cost>10</cost>
+                <time>10</time>
+            </measures>
         </resprofile>
         <resprofile id="23" name="rp23" role ="Doc" task="Initial Examination">
             <measures>
                 <cost>55</cost>
-                <time>45</time>
+                <time>10</time>
             </measures>
         </resprofile>
         <resprofile id="25" name="rp25" role ="Doc" task="surgical operation">

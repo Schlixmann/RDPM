@@ -35,6 +35,12 @@ def create_change_operation(allocated_branch: Node, process_model: str):
         #    elem_to_manipulate = process_model.xpath(f".//*[@id='{task_id}']", namespaces=ns)[0]    
 
         for child in x.children:
+            allocation_attrib = elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] 
+            if allocation_attrib != "not_allocated":
+                allocation_attrib = allocation_attrib + " & " + str(child.get_name) + " rp:" + str(child.resource_profile.name)
+                elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] = allocation_attrib
+            else:
+                elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"]  = str(child.get_name) + " rp:" + str(child.resource_profile.name)
             if len(child.resource_profile.change_patterns) > 0:
                 for pattern in child.resource_profile.change_patterns:
                     a = pattern.attrib["type"]
@@ -85,15 +91,15 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                         f.write(etree.tostring(process_model))
 
             else:
-                    
+                pass
                 # BaseCase to allocate an element
                 # allocate element:
-                allocation_attrib = elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] 
-                if allocation_attrib != "not_allocated":
-                    allocation_attrib = allocation_attrib + " & " + str(child.get_name) + " rp:" + str(child.resource_profile.name)
-                    elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] = allocation_attrib
-                else:
-                    elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"]  = str(child.get_name) + " rp:" + str(child.resource_profile.name)
+                #allocation_attrib = elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] 
+                #if allocation_attrib != "not_allocated":
+                #    allocation_attrib = allocation_attrib + " & " + str(child.get_name) + " rp:" + str(child.resource_profile.name)
+                #    elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"] = allocation_attrib
+                #else:
+                #    elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"]  = str(child.get_name) + " rp:" + str(child.resource_profile.name)
 
 
 
