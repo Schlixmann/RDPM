@@ -78,4 +78,3 @@ class ResourceWarning(UserWarning):
 # 2. build change operations for this task
 # 3. Integrate change operations in original RPST
 # 4. Make accessible and return to CPEE
-

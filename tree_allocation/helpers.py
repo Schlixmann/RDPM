@@ -16,25 +16,23 @@ def get_all_resources(resource_url):
         print("Resource status_code: ", r.status_code)
         root = etree.fromstring(r.content)
         reslist = []
-        init_measure_dict = {}
-
-        for measure in root.xpath("//measures/*"):
-            for item in measure.iter():
-                init_measure_dict.update({str(item.tag): 0})
+        init_measure_dict = dict(map(lambda e: (e.tag, 0), root.xpath("//measures/*")))
         print(f"Dict of Measures: ", init_measure_dict)
         
         for element in root.xpath("//resource"):
             print(f"Create resource with id {element.attrib['id']}")
             res = Resource(element.attrib["name"])
+            
             for profile in element.xpath("resprofile"):
-                change_patterns=[]
-                for cp in profile.xpath("changepattern"):
-                    change_patterns.append(cp)
+                change_patterns = [] + element.xpath("changepattern")
+                print(f"change_patterns: {change_patterns}")
+                measure_dict = init_measure_dict | dict(map(lambda e: (e.tag, e.text), element.xpath("measures/*")))
+                print(f"used_measure_dict for {profile.attrib['name']}: {measure_dict}")
                 
-                measure_dict = dict(init_measure_dict)
-                for measure in profile.xpath("measures/*"):
-                    logger.debug(f"Tag: {measure.tag}, Value: {float(measure.text)}")
-                    measure_dict[str(measure.tag)] = float(measure.text)
+            #    measure_dict = dict(init_measure_dict)
+            #    for measure in profile.xpath("measures/*"):
+            #        logger.debug(f"Tag: {measure.tag}, Value: {float(measure.text)}")
+            #        measure_dict[str(measure.tag)] = float(measure.text)
                 
                 logger.debug(f"init_measure_dict of {element} : {profile}: {measure_dict}")
                 logger.debug(f"check_init_measure: {init_measure_dict}")
