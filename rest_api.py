@@ -26,11 +26,11 @@ def get_info():
 @get("/resources")
 def get_resources():
     '''Return the resource xml'''
-    resource_xml = open("./config/res_config_cost2.xml").read()
+    resource_xml = open("./config/res_config_cost3.xml").read()
     response.headers['Content-Type'] = 'text/xml'  
     return resource_xml
 
-@post("/allocation/")
+@post("/allocation")
 def update_process():
     # Get measure and Operator from form
     try:

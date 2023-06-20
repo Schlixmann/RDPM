@@ -32,18 +32,6 @@
                 <cost>5</cost>
                 <time>5</time>
             </measures>
-            <changepattern type="insert">
-                <parameters>
-                    <direction>parallel</direction>
-                </parameters>
-                <description xmlns="http://cpee.org/ns/description/1.0">
-                    <manipulate id="r7" label="Monitor Surgery">
-                        <resources allocated_to="not_allocated">
-                            <resource>Helper</resource>
-                        </resources>
-                    </manipulate>
-                </description>
-            </changepattern>
         </resprofile>
         <resprofile id="14" name="rp14" role ="Nurse" task="Hospital stay">
             <measures>
@@ -52,7 +40,7 @@
             </measures>
         </resprofile> <!--}}}--> <!--}}}-->
     </resource>
-    <resource id="2" name="doc1" activeRole="">
+    <resource id="2" name="doc1_inexp" activeRole="">
         <resprofile id="22" name="rp22" role ="Doc" task="Decision"> <!--{{{-->
             <measures>
                 <cost>10</cost>
@@ -65,7 +53,7 @@
                 <time>10</time>
             </measures>
         </resprofile>
-        <resprofile id="25" name="rp25" role ="Doc" task="surgery">
+        <resprofile id="25" name="rp25" role ="Doc" task="Surgery">
             <measures>
                 <cost>100</cost>
                 <time>55</time>
@@ -82,12 +70,47 @@
                     </manipulate>
                 </description>
             </changepattern>
-
         </resprofile>
         <resprofile id="24" name="rp24" role ="Doc" task="Operation">
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
-                    <manipulate id="r3" label="surgery">
+                    <manipulate id="r3" label="Surgery">
+                        <resources allocated_to="not_allocated">
+                            <resource>Doc</resource>
+                        </resources>
+                    </manipulate>
+                    <manipulate id="r4" label="Hospital Stay">
+                        <resources allocated_to="not_allocated">
+                            <resource>Nurse</resource>
+                        </resources>
+                    </manipulate>
+                </description>
+            </changepattern>
+        </resprofile>   <!--}}}-->
+    </resource>
+    <resource id="6" name="doc2_exp" activeRole="">
+        <resprofile id="22" name="rp22" role ="Doc" task="Decision"> <!--{{{-->
+            <measures>
+                <cost>10</cost>
+                <time>10</time>
+            </measures>
+        </resprofile>
+        <resprofile id="23" name="rp23" role ="Doc" task="Initial Examination">
+            <measures>
+                <cost>55</cost>
+                <time>10</time>
+            </measures>
+        </resprofile>
+        <resprofile id="25" name="rp25" role ="Doc" task="Surgery">
+            <measures>
+                <cost>120</cost>
+                <time>40</time>
+            </measures>
+        </resprofile>
+        <resprofile id="24" name="rp24" role ="Doc" task="Operation">
+            <changepattern type="replace">
+                <description xmlns="http://cpee.org/ns/description/1.0">
+                    <manipulate id="r3" label="Surgery">
                         <resources allocated_to="not_allocated">
                             <resource>Doc</resource>
                         </resources>
