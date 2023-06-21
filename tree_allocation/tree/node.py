@@ -74,6 +74,8 @@ class Node:
         index = branch_measure.index(value)
 
         best_branch =  all_branches[index]       
+        best_res_node = [best_branch][0]
+        
         
         # clean node:
         best_res_node = best_branch[0]
