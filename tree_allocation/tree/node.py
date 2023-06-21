@@ -28,9 +28,8 @@ class Node:
         
 
     def count_branch_steps(self, branch, measure=None, operator=min):
-        # TODO Change so different measures work
         # TODO does not consider measure to filter cheapest resource
-        warnings.warn("The standard operator < min > is used.")
+
         if measure == None:
             finished_step = len([step for step in branch if type(step) != list])
         else: 
@@ -42,7 +41,8 @@ class Node:
         if len(open_step) == 0: return finished_step
         logger.debug(f"open step: {open_step}")
         for i in open_step:
-            return finished_step + self.count_branch_steps(i, measure=measure, operator=operator)
+            branch_measure = finished_step + self.count_branch_steps(i, measure=measure, operator=operator)
+        return branch_measure
 
     def clean_best_branch_node(self, measure, operator):
         if len(self.children) == 0:
@@ -59,12 +59,32 @@ class Node:
                 self.children = [self.children[best_child_index]]
 
             for child in self.children:
-                return child.clean_best_branch_node(measure, operator)    
+                return child.clean_best_branch_node(measure, operator)   
+
+    #TODO Def best res_node
+    # Decide between multiple resource children and return the best one based on the value of all its children.
+    #
+    def get_best_res_node(self, measure=None, operator=None):
+        all_branches = [child.tree_paths() for child in self.children]
+        branch_measure = [self.count_branch_steps(branch, measure=measure, operator=operator) for branch in all_branches]
+        if not operator:
+            value = min(branch_measure)
+        else:
+            value = operator(branch_measure)
+        index = branch_measure.index(value)
+
+        best_branch =  all_branches[index]       
+        
+        # clean node:
+        best_res_node = best_branch[0]
+        return  
 
     def get_best_branch(self, measure=None, operator=None):
         # TODO should return all indices not just first. 
         #       
+        print(f"To get the best branch, the used operator is: {operator} on the measure {measure}")
         all_branches = [child.tree_paths() for child in self.children]
+        print(all_branches)
         branch_measure = [self.count_branch_steps(branch, measure=measure, operator=operator) for branch in all_branches]#[len(branch) for branch in all_branches]
         print(f"Branch measure, measure = {measure}: {branch_measure}")
         if not operator:

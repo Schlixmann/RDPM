@@ -21,9 +21,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
     print(f"All nodes: {[task.get_name for task in allocated_branch.get_all_nodes(key='task')]}")
     for x in allocated_branch.get_all_nodes(key="task"):
         # find element to manipulate:
-    
         task_id = x.id
-
 
         with open("process2.xml", "wb") as f:
             f.write(etree.tostring(process_model))
@@ -61,7 +59,6 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                             logger.debug(f"to_insert: {to_insert}")
                             for change in to_insert[::-1]:
                                 logger.debug(f"{task_id}")
-                                #logger.debug([elem.attrib["id"] for elem in process_model.xpath("/cpee1:description/*", namespaces=ns)])
                                 logger.debug(process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns))
                                 insert_index = process_model.xpath("/cpee1:description/*", namespaces=ns).index(process_model.xpath(f"//cpee1:*[@id='{task_id}']", namespaces=ns)[0])
                                 logger.debug(f"inser_index: {insert_index}")

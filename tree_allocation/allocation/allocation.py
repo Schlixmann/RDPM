@@ -35,6 +35,7 @@ def parse_tasks(xml_string:str):
 
 def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=None, res_parent=None):
     # TODO: Multiple RP's for one resource where one RP is not possible must be created still.
+    
     for resource in av_resources:
         for profile in resource.resource_profiles:
             if root.label.lower() == profile.task.lower() and (profile.role in root.allowed_roles if len(root.allowed_roles) > 0 else True): 
@@ -54,13 +55,22 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
         
     
     for resource in root.children:
+        ex_branch = excluded
         if len(resource.resource_profile.change_patterns) > 0:
             for change_patterns in resource.resource_profile.change_patterns:
                 #TODO check for excluded
                 tasks = parse_tasks(change_patterns)
+                print(ex_branch , "and \n ", tasks)
+                if any(x['label'].lower() in map(lambda d: d["label"].lower(), tasks) for x in ex_branch): 
+                    print(f"Break reached, task {tasks} in excluded")
+                    root.children.remove(resource)
+                    break
+
                 for task in tasks:
+                    ex_branch = ex_branch + [task]
                     task = tn.TaskNode(task["task_id"], task["label"], allowed_roles=task["roles"])
-                    resource.add_child(build_allo_tree(task, av_resources, excluded=excluded, task_parent=root, res_parent=resource))
+                    resource.add_child(build_allo_tree(task, av_resources, excluded=ex_branch, task_parent=root, res_parent=resource))
+                
     return root
 
 class ResourceError(Exception):
