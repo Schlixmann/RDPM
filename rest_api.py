@@ -109,6 +109,7 @@ def my_request(instance_url, xml_str):
         }
     status_url = instance_url + "properties/state/"
     payload = "value=running"
+    
     response = requests.request("PUT", status_url, data=payload, headers=headers)
     print(response.status_code)
     logging.info(f"PUT state to running with status code: {response.status_code}")

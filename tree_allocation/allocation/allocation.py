@@ -31,8 +31,6 @@ def parse_tasks(xml_string:str):
         tasks.append({"task_id": task_id, "label": label, "roles": roles})
     return tasks
 
-# TODO: allowed roles for one Task
-
 def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=None, res_parent=None):
     # TODO: Multiple RP's for one resource where one RP is not possible must be created still.
     
@@ -58,9 +56,9 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
         ex_branch = excluded
         if len(resource.resource_profile.change_patterns) > 0:
             for change_patterns in resource.resource_profile.change_patterns:
-                #TODO check for excluded
+
                 tasks = parse_tasks(change_patterns)
-                print(ex_branch , "and \n ", tasks)
+                #print(ex_branch , "and \n ", tasks)
                 if any(x['label'].lower() in map(lambda d: d["label"].lower(), tasks) for x in ex_branch): 
                     print(f"Break reached, task {tasks} in excluded")
                     root.children.remove(resource)
