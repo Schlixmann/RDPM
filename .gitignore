@@ -1,8 +1,8 @@
 # Untracked Folders
 resmanipulation/
-output/*
+output/
 archive/
-log/*
+log/
 .vscode/
 
 # Untracked File Types
