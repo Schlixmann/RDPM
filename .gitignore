@@ -3,7 +3,11 @@ resmanipulation/
 output/
 archive/
 log/
+.vscode/
+__pycache__/
 
 # Untracked File Types
 *.xml
+
+# Keep config tracked
 !config/*
