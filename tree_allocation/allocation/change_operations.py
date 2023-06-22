@@ -23,7 +23,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
         # find element to manipulate:
         task_id = x.id
 
-        with open("process2.xml", "wb") as f:
+        with open("output/process2.xml", "wb") as f:
             f.write(etree.tostring(process_model))
         #try:
         print(task_id)
@@ -73,7 +73,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                                         print("insert_index: ", insert_index)
                                         to_remove = process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index]
                                         process_model.xpath(f"/cpee1:description/*[{insert_index}]", namespaces=ns)[0].addnext(etree.fromstring("<parallel wait=\"-1\" cancel=\"last\"></parallel>"))
-                                        with open("process3.xml", "wb") as f:
+                                        with open("output/process3.xml", "wb") as f:
                                             f.write(etree.tostring(process_model))
                                         
                                         etree.SubElement(process_model.xpath(f"/cpee1:description/*[{insert_index+1}]", namespaces=ns)[0], "parallel_branch", {"pass": "", "local":""})
@@ -84,7 +84,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                                         process_model.xpath(f"/cpee1:description/*[{insert_index+1}]/*", namespaces=ns)[-1].append(to_remove)                           
                                         
                             
-                    with open("process1.xml", "wb") as f:
+                    with open("output/process1.xml", "wb") as f:
                         f.write(etree.tostring(process_model))
 
             else:

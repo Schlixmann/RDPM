@@ -1,6 +1,6 @@
 from proc_resource import *
 from tree_allocation.allocation.allocation import *
-from tree_allocation.allocation.change_operations import * 
+from tree_allocation.allocation.change_operations import *
 from PrettyPrint import PrettyPrintTree
 from pptree import *
 from lxml import etree

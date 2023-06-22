@@ -1,5 +1,5 @@
 import unittest
-from change_pattern import * 
+from archive.change_pattern import * 
 
 class TestEvent(unittest.TestCase):
     def test_changePattern(self):
