@@ -1,0 +1,4 @@
+1. Build podman image
+2. Build pdman container
+podman run --name f21cpee -p 8080:8080 felix/cpee_test
+
