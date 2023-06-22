@@ -1,4 +1,9 @@
 import logging
+import os 
+if not os.path.exists("log"):
+    os.makedirs("log")
+if not os.path.exists("output"):
+    os.makedirs("output")
 logging.basicConfig(filename='log/myapp.log', level=logging.DEBUG)
 logging.info('Started')
 
