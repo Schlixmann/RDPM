@@ -76,9 +76,9 @@ def build_allo_tree(root, av_resources:Resource=[], excluded=[], task_parent=Non
                 
     return root
 
-def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", measure=None, operator=min):
+def allocate_process(cpee_url, resource_url="http://127.0.0.1:8000/resources", measure=None, operator=min, file_path:str = "res_config_cost3"):
     #resources = get_all_resources("./config/res_config_5.xml")
-    resources = get_all_resources(resource_url)
+    resources = get_all_resources(resource_url, file_path)
     logger.info(f"Test logging from module {[r.name for r in resources]}")
     process_model_xml, process_model_etree = get_process_model(cpee_url)
     tasklabels = []

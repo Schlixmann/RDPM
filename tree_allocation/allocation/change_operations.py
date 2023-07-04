@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 def create_change_operation(allocated_branch: Node, process_model: str):
     print("Operations of allocated_branch: ", allocated_branch.get_all_nodes(key="task"))
     # define namespaces
-    ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
-            "cpee1":"http://cpee.org/ns/description/1.0"}
+    ns = {"cpee2": "http://cpee.org/ns/properties/2.0",
+          "cpee1":"http://cpee.org/ns/description/1.0"}
     resources = allocated_branch.get_all_nodes(key="resource")
     process_model = etree.fromstring(process_model)
     
@@ -41,6 +41,7 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                 elem_to_manipulate.find(f".//cpee1:resources", ns).attrib["allocated_to"]  = str(child.get_name) + " rp:" + str(child.resource_profile.name)
             if len(child.resource_profile.change_patterns) > 0:
                 for pattern in child.resource_profile.change_patterns:
+                    open("output/pattern.xml", "wb").write(etree.tostring(pattern))
                     a = pattern.attrib["type"]
                     match a:
                         case "replace":
@@ -63,13 +64,19 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                                 insert_index = process_model.xpath("/cpee1:description/*", namespaces=ns).index(process_model.xpath(f"//cpee1:*[@id='{task_id}']", namespaces=ns)[0])
                                 logger.debug(f"inser_index: {insert_index}")
                                 logger.debug(f"Match pattern: {[elem for elem in pattern.xpath('//changepattern/parameters/direction' , namespaces=ns)]}")
-                                match pattern.xpath("//changepattern/parameters/direction", namespaces=ns)[0].text:
+                                
+                                print("Insertion direction: ", pattern.xpath("./parameters/direction")[0].text)
+                                
+                                match pattern.xpath("./parameters/direction")[0].text:
                                     case "before":
+                                        print("Inserting before")
                                         process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index - 1].addnext(change)
                                         logger.debug("Added to process model!")
                                     case "after":
+                                        print("Inserting after")
                                         process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index].addnext(change)
                                     case "parallel":
+                                        print("Inserting parallel")
                                         print("insert_index: ", insert_index)
                                         to_remove = process_model.xpath("/cpee1:description/*", namespaces=ns)[insert_index]
                                         process_model.xpath(f"/cpee1:description/*[{insert_index}]", namespaces=ns)[0].addnext(etree.fromstring("<parallel wait=\"-1\" cancel=\"last\"></parallel>"))
