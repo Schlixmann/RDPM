@@ -69,27 +69,30 @@ def create_change_operation(allocated_branch: Node, process_model: str):
                                 match pattern.xpath("./parameters/direction")[0].text:
                                     case "before":
                                         print("Inserting before")
-                                        process_model.xpath("//cpee1:*", namespaces=ns)[insert_index - 1].addnext(change)
+                                        process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].addprevious(change)
                                         logger.debug("Added to process model!")
                                     case "after":
                                         print("Inserting after")
-                                        process_model.xpath("//cpee1:*", namespaces=ns)[insert_index].addnext(change)
+                                        process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].addnext(change)
                                     case "parallel":
                                         print("Inserting parallel")
                                         print("insert_index: ", insert_index)
-                                        to_remove = process_model.xpath("//cpee1:*", namespaces=ns)[insert_index]
-                                        process_model.xpath(f"//cpee1:*", namespaces=ns)[insert_index].addnext(etree.fromstring("<parallel wait=\"-1\" cancel=\"last\"></parallel>"))
+                                        to_remove = process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0]
+                                        print("to_remove: ", to_remove)
+                                        process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].addnext(etree.fromstring("<parallel wait=\"-1\" cancel=\"last\"></parallel>"))
+                                                                               
+                                        
+                                        etree.SubElement(process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].getnext(), "parallel_branch", {"pass": "", "local":""})
+                                        
+                                        
                                         with open("output/process3.xml", "wb") as f:
                                             f.write(etree.tostring(process_model))
                                         
-                                        etree.SubElement(process_model.xpath(f"//cpee1:*", namespaces=ns)[{insert_index+1}], "parallel_branch", {"pass": "", "local":""})
-                                        print("printy: ", process_model.xpath(f"//cpee1:*", namespaces=ns)[{insert_index+1}])
-                                        process_model.xpath(f"//cpee1:*[{insert_index+1}]/*", namespaces=ns)[-1].append(change)
+                                        process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].getnext().xpath("./*")[-1].append(change)
+                                        etree.SubElement(process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].getnext(), "parallel_branch", {"pass": "", "local":""})
+                                        process_model.xpath(f".//cpee1:*[@id='{task_id}']", namespaces=ns)[0].getnext().xpath("./*")[-1].append(to_remove)
                                         
-                                        etree.SubElement(process_model.xpath(f"//cpee1:*[{insert_index+1}]", namespaces=ns)[0], "parallel_branch", {"pass": "", "local":""})
-                                        process_model.xpath(f"//cpee1:*[{insert_index+1}]/*", namespaces=ns)[-1].append(to_remove)                           
-                                        
-                            
+
                     with open("output/process1.xml", "wb") as f:
                         f.write(etree.tostring(process_model))
 
