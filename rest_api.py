@@ -65,13 +65,12 @@ def update_process():
     
 
     # Get Resource URL from form and run allocation
-    if request.forms.get("resource_url"):
-        file_path = request.forms.get("resource_url")
-        print("Resource config File URL", file_path)
+    file_path = request.forms.get("resource_file")
+    print("Resource config File URL", file_path)
         
-        manipulated_process_model = allocate_process(description_url, resource_url=resource_url , measure=measure, operator=operator, file_path=file_path)
-    else: 
-        manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator) #"defaul url is http://127.0.0.1:8000/resources"
+    manipulated_process_model = allocate_process(description_url, resource_url=resource_url , measure=measure, operator=operator, file_path=file_path)
+     
+    
 
     # Return allocated Description to CPEE
     event = threading.Event()
