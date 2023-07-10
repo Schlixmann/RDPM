@@ -32,8 +32,8 @@ def get_info():
 @get("/resources")
 def get_resources():
     '''Return the resource xml'''
-    print("Headers: " , request.query.get("resource_url"))
-    path = request.query.get("resource_url")
+    print("Headers: " , request.query.get("resource_file"))
+    path = request.query.get("resource_file")
     print("Resource File-Path: ", path)
     resource_xml = open("config/" + path + ".xml").read()
     response.headers['Content-Type'] = 'text/xml'  
@@ -61,7 +61,7 @@ def update_process():
     print("CPEE-Instance URL: ", request.headers.raw("Cpee-Instance-Url"))
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
-
+    resource_url = request.query.get("resource_url")
     
 
     # Get Resource URL from form and run allocation
@@ -69,7 +69,7 @@ def update_process():
         file_path = request.forms.get("resource_url")
         print("Resource config File URL", file_path)
         
-        manipulated_process_model = allocate_process(description_url, resource_url="http://127.0.0.1:9305/resources" , measure=measure, operator=operator, file_path=file_path)
+        manipulated_process_model = allocate_process(description_url, resource_url=resource_url , measure=measure, operator=operator, file_path=file_path)
     else: 
         manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator) #"defaul url is http://127.0.0.1:8000/resources"
 

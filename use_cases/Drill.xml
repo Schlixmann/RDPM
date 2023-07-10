@@ -4,8 +4,8 @@
   <endpoints>
     <timeout>https://cpee.org/services/timeout.php</timeout>
     <subprocess>https://cpee.org/flow/start/url/</subprocess>
-    <allocation>http://localhost:62000/allocation</allocation>
-    <resources>http://localhost:62000/resources</resources>
+    <allocation>http://cpee.org/rdpm/allocation</allocation>
+    <resources>http://cpee.org/rdpm/resources</resources>
   </endpoints>
   <attributes>
     <info>Drill</info>
