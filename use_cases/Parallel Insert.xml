@@ -4,8 +4,8 @@
   <endpoints>
     <timeout>https://cpee.org/services/timeout.php</timeout>
     <subprocess>https://cpee.org/flow/start/url/</subprocess>
-    <allocation>http://localhost:62000/allocation</allocation>
-    <resources>http://localhost:62000/resources</resources>
+    <allocation>http://cpee.org/rdpm/allocation</allocation>
+    <resources>http://cpee.org/rdpm/resources</resources>
   </endpoints>
   <attributes>
     <info>Parallel Insert</info>
@@ -27,7 +27,8 @@
           <label>Allocation</label>
           <method>:post</method>
           <arguments>
-            <resource_url>parallel_insert</resource_url>
+            <resource_url>!endpoints.resources</resource_url>
+            <resource_file>parallel_insert</resource_file>
             <measure>time</measure>
             <operator>min</operator>
           </arguments>

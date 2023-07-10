@@ -4,17 +4,17 @@
   <endpoints>
     <timeout>https://cpee.org/services/timeout.php</timeout>
     <subprocess>https://cpee.org/flow/start/url/</subprocess>
-    <allocation>http://cpee.org/rdpm/allocation</allocation>
-    <resources>http://cpee.org/rdpm/resources</resources>
+    <allocation>http://localhost:62000/allocation</allocation>
+    <resources>http://localhost:62000/resources</resources>
   </endpoints>
   <attributes>
-    <info>Insert_after</info>
+    <info>Machine_Setup</info>
     <creator>Christine Ashcreek</creator>
     <author>Christine Ashcreek</author>
     <modeltype>CPEE</modeltype>
     <guarded>none</guarded>
     <guarded_id/>
-    <model_uuid>2142c6f6-ba24-4bf0-afef-3360fbeb1d30</model_uuid>
+    <model_uuid>6a93b045-8cdd-444b-bc47-3ec5c35fada9</model_uuid>
     <model_version/>
     <theme>felix</theme>
     <design_dir>Schumann.dir</design_dir>
@@ -27,8 +27,7 @@
           <label>Allocation</label>
           <method>:post</method>
           <arguments>
-            <resource_url>!endpoints.resources</resource_url>
-            <resource_file>machine_setup</resource_file>
+            <resource_url>machine_setup</resource_url>
             <measure>time</measure>
             <operator>min</operator>
           </arguments>

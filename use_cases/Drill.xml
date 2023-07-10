@@ -27,7 +27,8 @@
           <label>Allocation</label>
           <method>:post</method>
           <arguments>
-            <resource_url>drill</resource_url>
+            <resource_url>!endpoints.resources</resource_url>
+            <resource_file>drill</resource_file>
             <measure>time</measure>
             <operator>max</operator>
           </arguments>
