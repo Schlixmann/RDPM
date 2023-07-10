@@ -8,13 +8,13 @@
     <resources>http://cpee.org/rdpm/resources</resources>
   </endpoints>
   <attributes>
-    <info>Insert_after</info>
+    <info>Parallel Insert</info>
     <creator>Christine Ashcreek</creator>
     <author>Christine Ashcreek</author>
     <modeltype>CPEE</modeltype>
     <guarded>none</guarded>
     <guarded_id/>
-    <model_uuid>2142c6f6-ba24-4bf0-afef-3360fbeb1d30</model_uuid>
+    <model_uuid>0cd63295-0fec-4ec8-90af-286a282f99c7</model_uuid>
     <model_version/>
     <theme>felix</theme>
     <design_dir>Schumann.dir</design_dir>
@@ -28,7 +28,7 @@
           <method>:post</method>
           <arguments>
             <resource_url>!endpoints.resources</resource_url>
-            <resource_file>machine_setup</resource_file>
+            <resource_file>parallel_insert</resource_file>
             <measure>time</measure>
             <operator>min</operator>
           </arguments>
@@ -64,7 +64,7 @@
       </call>
       <call id="a1" endpoint="">
         <parameters>
-          <label>Drill Hole</label>
+          <label>Mill Part</label>
           <method>:post</method>
           <arguments/>
         </parameters>
@@ -96,7 +96,7 @@
           </implementation>
         </documentation>
         <resources allocated_to="not_allocated">
-          <resource>Drill</resource>
+          <resource>Mill</resource>
         </resources>
       </call>
     </description>

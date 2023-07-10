@@ -8,13 +8,13 @@
     <resources>http://localhost:62000/resources</resources>
   </endpoints>
   <attributes>
-    <info>Parallel Insert</info>
+    <info>Machine_Setup</info>
     <creator>Christine Ashcreek</creator>
     <author>Christine Ashcreek</author>
     <modeltype>CPEE</modeltype>
     <guarded>none</guarded>
     <guarded_id/>
-    <model_uuid>0cd63295-0fec-4ec8-90af-286a282f99c7</model_uuid>
+    <model_uuid>6a93b045-8cdd-444b-bc47-3ec5c35fada9</model_uuid>
     <model_version/>
     <theme>felix</theme>
     <design_dir>Schumann.dir</design_dir>
@@ -27,7 +27,7 @@
           <label>Allocation</label>
           <method>:post</method>
           <arguments>
-            <resource_url>parallel_insert</resource_url>
+            <resource_url>machine_setup</resource_url>
             <measure>time</measure>
             <operator>min</operator>
           </arguments>
@@ -63,7 +63,7 @@
       </call>
       <call id="a1" endpoint="">
         <parameters>
-          <label>Mill Part</label>
+          <label>Drill Hole</label>
           <method>:post</method>
           <arguments/>
         </parameters>
@@ -95,7 +95,7 @@
           </implementation>
         </documentation>
         <resources allocated_to="not_allocated">
-          <resource>Mill</resource>
+          <resource>Drill</resource>
         </resources>
       </call>
     </description>
