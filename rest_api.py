@@ -62,10 +62,12 @@ def update_process():
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
     resource_url = request.query.get("resource_url")
+
     
 
     # Get Resource URL from form and run allocation
     file_path = request.forms.get("resource_file")
+    print("Resource Service URL ", resource_url)
     print("Resource config File URL", file_path)
         
     manipulated_process_model = allocate_process(description_url, resource_url=resource_url , measure=measure, operator=operator, file_path=file_path)
