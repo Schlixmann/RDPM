@@ -60,12 +60,10 @@ def update_process():
     # Get URLs from Header
     print("CPEE-Instance URL: ", request.headers.raw("Cpee-Instance-Url"))
     instance_url = request.headers.raw("Cpee-Instance-Url")
-    description_url = instance_url + "properties/description/"
-    resource_url = request.query.get("resource_url")
-
-    
+    description_url = instance_url + "properties/description/"    
 
     # Get Resource URL from form and run allocation
+    resource_url = request.forms.get("resource_url")
     file_path = request.forms.get("resource_file")
     print("Resource Service URL ", resource_url)
     print("Resource config File URL", file_path)
