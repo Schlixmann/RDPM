@@ -32,7 +32,10 @@ def get_info():
 @get("/resources")
 def get_resources():
     '''Return the resource xml'''
-    resource_xml = open("./config/res_config_cost3.xml").read()
+    print("Headers: " , request.query.get("resource_url"))
+    path = request.query.get("resource_url")
+    print("Resource File-Path: ", path)
+    resource_xml = open("config/" + path + ".xml").read()
     response.headers['Content-Type'] = 'text/xml'  
     return resource_xml
 
@@ -61,10 +64,10 @@ def update_process():
 
     # Get Resource URL from form and run allocation
     if request.forms.get("resource_url"):
-        resource_url = request.forms.get("resource_url")
-        print("Resource config File URL", resource_url)
+        file_path = request.forms.get("resource_url")
+        print("Resource config File URL", file_path)
         
-        manipulated_process_model = allocate_process(description_url, resource_url=resource_url, measure=measure, operator=operator)
+        manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator, file_path=file_path)
     else: 
         manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator) #"defaul url is http://127.0.0.1:8000/resources"
 
