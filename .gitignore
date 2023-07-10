@@ -1,15 +1,21 @@
-# Untracked Folders
+# Untracked Folders & Files
 resmanipulation/
 output/
 archive/
 log/
 .vscode/
+cpee-docker/
+frontend/
+Dockerfile
+steps_local_cpee.txt
 
 # Untracked File Types
 *.xml
 
+
 # Keep config tracked
 !config/*
+!use_cases/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
