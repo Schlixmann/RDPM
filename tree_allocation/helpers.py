@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 def get_all_resources(resource_url, file_path:str):
         print("File_path: ", file_path)
-        payload = {'resource_url': file_path}
+        payload = {'resource_file': file_path}
         r = requests.get(url = resource_url, params=payload)
         print("Resource status_code: ", r.status_code)
         root = etree.fromstring(r.content)
