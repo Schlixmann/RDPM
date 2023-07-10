@@ -62,12 +62,14 @@ def update_process():
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
 
+    
+
     # Get Resource URL from form and run allocation
     if request.forms.get("resource_url"):
         file_path = request.forms.get("resource_url")
         print("Resource config File URL", file_path)
         
-        manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator, file_path=file_path)
+        manipulated_process_model = allocate_process(description_url, resource_url="http://127.0.0.1:9305/resources" , measure=measure, operator=operator, file_path=file_path)
     else: 
         manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator) #"defaul url is http://127.0.0.1:8000/resources"
 
