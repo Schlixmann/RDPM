@@ -15,6 +15,7 @@ steps_local_cpee.txt
 
 # Keep config tracked
 !config/*
+!resource_config/*
 !use_cases/*
 
 # Byte-compiled / optimized / DLL files
