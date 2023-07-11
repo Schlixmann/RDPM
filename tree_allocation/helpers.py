@@ -55,6 +55,6 @@ def get_process_model(cpee_url):
         # parse xml:
         root = etree.fromstring(r.content)
         xml_string = r.content
-        with open("./config/xml_model.xml", "wb") as f:
-            f.write(xml_string)
+        #with open("./config/xml_model.xml", "wb") as f:
+        #    f.write(xml_string)
         return xml_string, root
