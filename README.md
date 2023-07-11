@@ -32,12 +32,13 @@ Add one of the example use cases from the folder "use_cases" as argument.
 In Python `requests` package is required to run `open_model.py`
 - run `pip install -r requirements.txt` to get all dependencies for RDPM or `pip install requests` to get requests package.
 
-![Screenshot shows the Cpee interface which will open after running the command](https://github.com/Schlixmann/RDPM/assets/62253687/a12c3817-0859-4125-8bd4-42a5eb2fed4a)
-
 ## Additional Information: 
 - Please open a new instance everytime the allocation has been done
 - Please "abandon" an instance after successfull allocation
 - Sometimes the a refresh is needed to show the allocation
+
+![Screenshot shows the Cpee interface which will open after running the command](https://github.com/Schlixmann/RDPM/assets/62253687/a12c3817-0859-4125-8bd4-42a5eb2fed4a)
+
 ## To Host RDPM Local: 
 
 1. clone repository
