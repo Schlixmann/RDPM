@@ -43,5 +43,6 @@ In Python `requests` package is required to run `open_model.py`
 
 1. clone repository
 1. pip install -r requirements.txt
+1. change endpoints "allocation" and "resources" in cpee model
 1. python3 rest_api.py
 
