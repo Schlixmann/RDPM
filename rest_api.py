@@ -35,7 +35,7 @@ def get_resources():
     print("Headers: " , request.query.get("resource_url"))
     path = request.query.get("resource_url")
     print("Resource File-Path: ", path)
-    resource_xml = open("config/" + path + ".xml").read()
+    resource_xml = open("resource_config/" + path + ".xml").read()
     response.headers['Content-Type'] = 'text/xml'  
     return resource_xml
 
