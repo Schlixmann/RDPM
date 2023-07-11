@@ -4,7 +4,7 @@ if not os.path.exists("log"):
     os.makedirs("log")
 if not os.path.exists("output"):
     os.makedirs("output")
-logging.basicConfig(filename='log/myapp.log', level=logging.DEBUG)
+logging.basicConfig(filename='log/myapp.log', level=logging.INFO)
 logging.info('Started')
 
 from gevent import monkey; monkey.patch_all()
