@@ -17,6 +17,8 @@ Add one of the example use cases from the folder "use_cases" as argument.
 1. run:
 
 - `python3 open_model.py use_cases/Drill.xml`
+
+  OR
 - `ruby open_model.rb use_cases/Drill.xml`
 
 2. A new process instance is opened on the cpee.org demo server. 
