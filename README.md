@@ -26,10 +26,16 @@ Add one of the example use cases from the folder "use_cases" as argument.
 2. go to the tab "Execution"
 2. click "Start"
 
+**Python or Ruby must be installed to run examples**
+
+In Python `requests` package is required to run `open_model.py`
+- run `pip install -r requirements.txt` to get all dependencies for RDPM or `pip install requests` to get requests package.
+
 ![Screenshot shows the Cpee interface which will open after running the command](https://github.com/Schlixmann/RDPM/assets/62253687/a12c3817-0859-4125-8bd4-42a5eb2fed4a)
 
-To Host RDPM Local: 
+## To Host RDPM Local: 
 
+1. clone repository
 1. pip install -r requirements.txt
-1. run rest_api.py
+1. python3 rest_api.py
 
