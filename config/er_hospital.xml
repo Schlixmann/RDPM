@@ -3,8 +3,8 @@
     <resource id="1" name="nurse1" activeRole="">
         <resprofile id="11" name="rp11" role ="Nurse" task="Examination"> <!--{{{-->
              <measures>
-                <cost>20</cost>
-                <time>155</time>
+                <cost>10</cost>
+                <time>50</time>
             </measures>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
@@ -24,8 +24,8 @@
         </resprofile>
         <resprofile id="12" name="rp12" role ="Nurse" task="Initial Examination">
             <measures>
-                <cost>20</cost>
-                <time>155</time>
+                <cost>0</cost>
+                <time>0</time>
             </measures>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
