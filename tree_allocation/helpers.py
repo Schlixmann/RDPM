@@ -1,4 +1,4 @@
-from proc_resource import *
+from tree_allocation.proc_resource import *
 from pptree import *
 from lxml import etree
 import requests

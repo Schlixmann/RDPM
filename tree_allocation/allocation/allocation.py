@@ -4,7 +4,7 @@ from tree_allocation.helpers import get_all_resources, get_all_tasks, get_proces
 from tree_allocation.allocation.change_operations import *
 
 from PrettyPrint import PrettyPrintTree
-from proc_resource import *
+from tree_allocation.proc_resource import *
 from lxml import etree
 import warnings
 import logging
