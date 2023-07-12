@@ -147,4 +147,6 @@ def edit_resources():
 
 
 if __name__ == '__main__':
-    bottle.run(host = '127.0.0.1', port = 8000, server="gevent")
+    config = json.loads(open("server_config.json").read())
+    print("Server config: ", config)
+    bottle.run(host = config["host"], port = config["port"], server=config["server"])
