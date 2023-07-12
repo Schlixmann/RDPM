@@ -37,6 +37,7 @@ def get_resources():
     print("Resource File-Path: ", path)
     resource_xml = open("resource_config/" + path + ".xml").read()
     response.headers['Content-Type'] = 'text/xml'  
+    print("RES_XML", resource_xml)
     return resource_xml
 
 @post("/allocation")
@@ -62,14 +63,14 @@ def update_process():
     instance_url = request.headers.raw("Cpee-Instance-Url")
     description_url = instance_url + "properties/description/"
 
+    
     # Get Resource URL from form and run allocation
-    if request.forms.get("resource_url"):
-        file_path = request.forms.get("resource_url")
-        print("Resource config File URL", file_path)
+    resource_url = request.forms.get("resource_url")
+    file_path = request.forms.get("resource_file")
+    print("Resource Service URL ", resource_url)
+    print("Resource config File URL", file_path)
         
-        manipulated_process_model = allocate_process(description_url, resource_url="http://127.0.0.1:8000", measure=measure, operator=operator, file_path=file_path)
-    else: 
-        manipulated_process_model = allocate_process(description_url, measure=measure, operator=operator) #"defaul url is http://127.0.0.1:8000/resources"
+    manipulated_process_model = allocate_process(description_url, resource_url=resource_url , measure=measure, operator=operator, file_path=file_path)
 
     # Return allocated Description to CPEE
     event = threading.Event()
