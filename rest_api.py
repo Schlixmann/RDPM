@@ -32,8 +32,8 @@ def get_info():
 @get("/resources")
 def get_resources():
     '''Return the resource xml'''
-    print("Headers: " , request.query.get("resource_url"))
-    path = request.query.get("resource_url")
+    print("Headers: " , request.query.get("resource_file"))
+    path = request.query.get("resource_file")
     print("Resource File-Path: ", path)
     resource_xml = open("resource_config/" + path + ".xml").read()
     response.headers['Content-Type'] = 'text/xml'  

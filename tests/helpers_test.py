@@ -1,5 +1,5 @@
 import unittest
-from proc_resource import *
+from tree_allocation.proc_resource import *
 from tree_allocation.helpers import *
 
 class TestEvent(unittest.TestCase):
