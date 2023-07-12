@@ -1,1 +1,0 @@
-ssh -R 62000:localhost:8000 demo
