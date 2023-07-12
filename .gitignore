@@ -8,6 +8,7 @@ cpee-docker
 frontend/
 Dockerfile
 steps_local_cpee.txt
+ssh_config
 
 # Untracked File Types
 *.xml
