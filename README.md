@@ -4,12 +4,7 @@ Resmanipulation provides a REST-Service to automatically alter processmodels bas
 
 ## Demo:
 A Demo of RDPM is hosted on cpee.org. 
-To start the demo, clone this repository and run either the file: 
-- `open_model.py`
-  
-  OR:
-- `open_model.ruby`
-
+To start the demo, clone this repository and run either the file: `open_model.py` or `open_model.ruby`
 Add one of the example use cases from the folder "use_cases" as argument.
 
 **Example:**
@@ -33,16 +28,16 @@ In Python `requests` package is required to run `open_model.py`
 - run `pip install -r requirements.txt` to get all dependencies for RDPM or `pip install requests` to get requests package.
 
 ## Additional Information: 
-- Please open a new instance everytime the allocation has been done
+- Please open a new instance everytime the allocation is done
 - Please "abandon" an instance after successfull allocation
-- Sometimes the a refresh is needed to show the allocation
+- Sometimes a refresh is needed to show the allocation
 
 ![Screenshot shows the Cpee interface which will open after running the command](https://github.com/Schlixmann/RDPM/assets/62253687/a12c3817-0859-4125-8bd4-42a5eb2fed4a)
 
 ## To Host RDPM Local: 
 
-1. clone repository
 1. pip install -r requirements.txt
 1. change endpoints "allocation" and "resources" in cpee model
+1. Add your server config in `server_config` 
 1. python3 rest_api.py
 
