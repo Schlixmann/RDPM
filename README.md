@@ -7,7 +7,7 @@ A Demo of RDPM is hosted on cpee.org.
 To start the demo, clone this repository and run either the file: `open_model.py` or `open_model.ruby`
 Add one of the example use cases from the folder "use_cases" as argument.
 
-**Example:**
+**Drill Example:**
 
 1. run:
 
