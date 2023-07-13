@@ -104,7 +104,7 @@
                     <direction>before</direction>
                 </parameters>
                 <description xmlns="http://cpee.org/ns/description/1.0">
-                    <manipulate id="r5" label="Level 3D measure machine">
+                    <manipulate id="r8" label="Level 3D measure machine">
                         <resources allocated_to="not_allocated">
                             <resource>Technician</resource>
                         </resources>
@@ -113,7 +113,7 @@
             </changepattern>
             <changepattern type="replace">
                 <description xmlns="http://cpee.org/ns/description/1.0">
-                    <manipulate id="r5" label="Full 3D check">
+                    <manipulate id="r9" label="Full 3D check">
                         <resources allocated_to="not_allocated">
                             <resource>3D Measure machine</resource>
                         </resources>

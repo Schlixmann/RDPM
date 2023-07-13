@@ -148,7 +148,7 @@
                             <resource>Nurse</resource>
                         </resources>
                     </manipulate>
-                    <call id="r2" endpoint="">
+                    <call id="r5" endpoint="">
                         <parameters>
                             <label>second examination</label>
                             <method>:post</method>

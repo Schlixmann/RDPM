@@ -89,7 +89,7 @@ def my_request(instance_url, xml_str):
     time.sleep(1)
 
     # Save manipulatet ProcessModel as local XML
-    open("output/final_xml.xml", "wb").write(xml_str)
+    #open("output/final_xml.xml", "wb").write(xml_str)
 
     process_model = etree.fromstring(xml_str)
     position = process_model.xpath(".//cpee1:*[@id]", namespaces=ns)[1].attrib["id"]
