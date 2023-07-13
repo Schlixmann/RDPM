@@ -86,7 +86,7 @@ def update_process():
 def my_request(instance_url, xml_str):
     ns = {"cpee2": "http://cpee.org/ns/properties/2.0", 
         "cpee1":"http://cpee.org/ns/description/1.0"}
-    time.sleep(1)
+    time.sleep(0.5)
 
     # Save manipulatet ProcessModel as local XML
     #open("output/final_xml.xml", "wb").write(xml_str)
