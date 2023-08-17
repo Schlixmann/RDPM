@@ -1,5 +1,5 @@
 bottle==0.12.25
-certifi==2023.5.7
+certifi
 charset-normalizer==3.1.0
 colorama==0.4.6
 gevent==22.10.2

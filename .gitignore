@@ -6,6 +6,7 @@ log/
 .vscode/
 cpee-docker
 frontend/
+rdpm_env/
 Dockerfile
 steps_local_cpee.txt
 ssh_config
